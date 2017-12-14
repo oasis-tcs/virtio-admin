@@ -31,8 +31,54 @@
 
 <div>
 <h3>Further Description of this Repository</h3>
-
-<p>[Any narrative content may be provided here by the TC, for example, if the Members wish to provide an extended statement of purpose.]</p>
+<strong>Clarification of OASIS TC process as applied to the Virtio TC:</strong>
+<dl>
+<dt><strong>Virtio TC Meetings:</strong></dt>
+<dd>The Virtio TC has adopted a standing rule to conduct business only by electronic ballot, without Meetings.<dd>
+<dt><strong>Gaining voting rights</strong></dt>
+<dd>A TC Member who lacks voting rights shall only gain voting rights
+   after requesting this from the TC chair by submitting the request to the
+   <a href="http://lists.oasis-open.org/archives/virtio/">virtio mailing list</a>
+   with a copy sent to the TC chair by email. For example, for a new TC member
+   to gain voting rights the request shall be send to the TC
+   chair after the close of the 60th day.
+</dd>
+<dt><strong>Maintaining Voting Rights</strong></dt>
+<dd>
+A Voting Member who fails to cast a ballot in two consecutive Work Product
+Ballots for which the voting periods do not overlap loses his voting rights at
+the close of the second ballot missed. In case of multiple ballots taking place
+simultaneously, voting in a single ballot is sufficient to maintain voting
+rights.
+<br>Note: to avoid losing voting rights due to an extended absence,
+A Voting Member can request a leave of absence.
+</dd>
+<dt><strong>Leave of Absence</strong></dt>
+<dd>
+To avoid losing voting rights due to an extended absence,
+Every Voting Member can request a leave of absence.
+A Leave of
+Absence shall not exceed 45 days. Each request shall be made by sending an
+email to the TC mailing list at least 7 days before the Leave is to start.
+<br>The TC has resolved that all such requests are automatically approved.
+</dd>
+<dt><strong>Disclosure Obligations<strong></dt>
+<dd>
+This TC operates under the
+<a href="https://www.oasis-open.org/policies-guidelines/ipr#Non-Assertion-Mode">Non-Assertion Mode</a>
+of the <a href="https://www.oasis-open.org/policies-guidelines/ipr">OASIS IPR Policy</a>.
+The policy includes a disclosure obligation (see
+<a href="https://www.oasis-open.org/policies-guidelines/ipr">OASIS IPR Policy</a>
+for details).
+<br>
+To satisfy the disclosure obligation, disclosures should be submitted to
+the <a href="http://lists.oasis-open.org/archives/virtio/">virtio mailing list</a>
+or the <a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=virtio">virtio-comment</a> mailing list.
+<br>
+Disclosures will be uploaded to
+<a href="https://github.com/oasis-tcs/virtio-admin">virtio-admin repository</a>
+<dd>
+</p>
 </div>
 
 <div>
