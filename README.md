@@ -76,7 +76,7 @@ the <a href="http://lists.oasis-open.org/archives/virtio/">virtio mailing list</
 or the <a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=virtio">virtio-comment</a> mailing list.
 <br>
 Disclosures will be uploaded to
-<a href="https://github.com/oasis-tcs/virtio-admin">virtio-admin repository</a>
+<a href="IPR.md">virtio-admin repository</a>
 <dd>
 </p>
 </div>
