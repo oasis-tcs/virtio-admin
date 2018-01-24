@@ -62,7 +62,7 @@ Absence shall not exceed 45 days. Each request shall be made by sending an
 email to the TC mailing list at least 7 days before the Leave is to start.
 <br>The TC has resolved that all such requests are automatically approved.
 </dd>
-<dt><strong>Disclosure Obligations<strong></dt>
+<dt><strong>Disclosure Obligations</strong></dt>
 <dd>
 This TC operates under the
 <a href="https://www.oasis-open.org/policies-guidelines/ipr#Non-Assertion-Mode">Non-Assertion Mode</a>
