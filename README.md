@@ -46,7 +46,7 @@
 <dt><strong>Maintaining Voting Rights</strong></dt>
 <dd>
 A Voting Member who fails to cast a ballot in two consecutive Work Product
-Ballots for which the voting periods do not overlap loses his voting rights at
+Ballots for which the voting periods do not overlap loses the voting rights at
 the close of the second ballot missed. In case of multiple ballots taking place
 simultaneously, voting in a single ballot is sufficient to maintain voting
 rights.
