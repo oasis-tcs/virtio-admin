@@ -113,4 +113,4 @@ fi
 ./virtio-ballot.pl "$(cat /tmp/title)" "$(cat /tmp/question)" "$(cat /tmp/description)" | tee /tmp/ballot-issue-log
 
 ballot=$(grep 'BALLOT CREATED' /tmp/ballot-issue-log)
-./virtio-tc.pl -comment $ISSUE "$ballot"
+./virtio-github.pl -comment "$ballot" $ISSUE 
