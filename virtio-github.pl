@@ -13,7 +13,7 @@ use Data::Dumper;
 
 {
 	package RC;
-	for my $file ("$ENV{HOME}/.virtio-tc-rc")
+	for my $file ("$ENV{HOME}/.virtio-github-rc")
 	{
 		unless (my $return = do $file) {
 			warn "couldn't parse $file: $@" if $@;
@@ -24,22 +24,31 @@ use Data::Dumper;
 
 }
 
-if (not defined $RC::USERNAME or not defined $RC::PASSWORD) {
+if (not defined $RC::TOKEN and
+    (not defined $RC::USERNAME or not defined $RC::PASSWORD)) {
 	print STDERR <<EOF
 Unable to find username/password.
-Please create $ENV{"HOME"}/.virtio-tc-rc
+Please create $ENV{"HOME"}/.virtio-github-rc
+
 In the following format (without <>):
+
 \$USERNAME = '<username>';
 \$PASSWORD = '<password>';
+
+Or
+
+\$TOKEN = '<personal-access-token>';
 EOF
 }
 
 my $USERNAME = $RC::USERNAME;
 my $PASSWORD = $RC::PASSWORD;
+my $TOKEN = $RC::TOKEN;
+
 
 sub help_and_exit {
 	print "Usage: \n";
-	print "   virtio-jira.pl [-o[pen]] [[-]-f[ix-versions][=| ]<version>]... [[-]-p[rint][=| ](s[ummary]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s]t[atus]|a[ll])]... VIRTIO-<issue#>\n";
+	print "   virtio-jira.pl [-o[pen]] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](s[ummary]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s]t[atus]|a[ll])]... <issue#>\n";
 	exit 1;
 }
 
@@ -49,6 +58,8 @@ if (not defined($ARGV[0])) {
 
 my @fix_version_names = ();
 my @print_fields = ();
+
+my $comment;
 
 my $open = 0;
 if (defined($ARGV[0]) and $ARGV[0] =~ m/^-?-o/) {
@@ -67,6 +78,11 @@ while (defined($ARGV[0]) and $ARGV[0] =~ m/^-?-f/) {
 	} else {
 		help_and_exit();
 	}
+}
+
+if (defined($ARGV[0]) and $ARGV[0] =~ m/^-?-c/) {
+	shift;
+	$comment = shift;
 }
 
 sub print_field {
@@ -127,12 +143,21 @@ sub post_json {
 	$json = encode_json($jsonhash);
 	$req = HTTP::Request->new('POST', $url);
 	$req->header('Content-Type' => 'application/json');
-	$req->header('Accept', 'application/json');
+#	$req->header('Accept', 'application/json');
+	$req->header('Authorization' => "token $TOKEN");
 	$req->content($json);
 	$response = $browser->request( $req );
 	die 'POST Error',
 	    "\n ", $response->status_line, "\n at $url\n Aborting"
 		    unless $response->code() eq 302 or $response->is_success;
+}
+
+my $browser = LWP::UserAgent->new;
+my $url = "https://api.github.com/repos/oasis-tcs/virtio-spec/issues/$issue";
+
+if (defined($comment)) {
+	my %data = ('body' => $comment);
+	post_json($browser, $url . "/comments", \%data);
 }
 
 sub put_json {
@@ -169,17 +194,12 @@ sub get_json {
 	return decode_json($response->content);
 }
 
-my $browser = LWP::UserAgent->new;
-
 # enable cookies
 $browser->cookie_jar({});
 
-my $url;
 my $issue_info;
 
 #GET: can be normally be done without authentication
-$url = "https://api.github.com/repos/oasis-tcs/virtio-spec/issues/$issue";
-#$url = "https://issues.oasis-open.org/rest/api/2/issue/$issue";
 
 #optimization: skip get if we only need to put
 if ($#print_fields >= 0) {
