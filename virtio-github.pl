@@ -40,7 +40,7 @@ my $TOKEN = $RC::TOKEN;
 
 sub help_and_exit {
 	print "Usage: \n";
-	print "   virtio-github.pl [-s[tate] open|closed] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](t[itle]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s][tatus]|a[ll])]... <issue#>\n";
+	print "   virtio-github.pl [-s[tate] open|closed] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](t[itle]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s][tate]|a[ll])]... <issue#>\n";
 	exit 1;
 }
 
@@ -277,36 +277,35 @@ if (defined $state) {
 }
 
 #get versions
-$url = "https://issues.oasis-open.org/rest/api/2/project/VIRTIO/versions";
+#$url = "https://issues.oasis-open.org/rest/api/2/project/VIRTIO/versions";
 #Done unless we need to make changes
 exit 0 unless $#fix_version_names >= 0;
 
-#get versions
-$url = "https://issues.oasis-open.org/rest/api/2/project/VIRTIO/versions";
-my $versions_info = get_json($browser, $url);
-
-my @vnames = ();
-foreach my $fix_version (@fix_version_names) {
-	my $found = 0;
-	foreach my $version (@$versions_info) {
-		if ($$version{'name'} =~ m/$fix_version/) {
-			$found = 1;
-			#push @{$$issue_info{'fixVersions'}}, $version;
-			my %version = ('name' => $$version{'name'});
-			push @vnames, \%version;
-		}
-	}
-	if (not $found) {
-		print STDERR "Version $fix_version not found in project.\n";
-		print STDERR "Options: ", Dumper(@{$versions_info}), "\n";
-		exit 3;
-	}
-}
-
-$url = "https://issues.oasis-open.org/rest/api/2/issue/$issue";
-my %fields = ('fixVersions' => \@vnames);
-my %request = ('fields' => \%fields);
-#print encode_json(\%request),"\n";
-put_json($browser, $url, \%request);
+##get versions
+#$url = "https://issues.oasis-open.org/rest/api/2/project/VIRTIO/versions";
+#my $versions_info = get_json($browser, $url);
+#
+#my @vnames = ();
+#foreach my $fix_version (@fix_version_names) {
+#	my $found = 0;
+#	foreach my $version (@$versions_info) {
+#		if ($$version{'name'} =~ m/$fix_version/) {
+#			$found = 1;
+#			#push @{$$issue_info{'fixVersions'}}, $version;
+#			my %version = ('name' => $$version{'name'});
+#			push @vnames, $fix_version;
+#		}
+#	}
+#	if (not $found) {
+#		print STDERR "Version $fix_version not found in project.\n";
+#		print STDERR "Options: ", Dumper(@{$versions_info}), "\n";
+#		exit 3;
+#	}
+#}
+#
+#$url = "https://issues.oasis-open.org/rest/api/2/issue/$issue";
+my %fields = ('labels' => \@fix_version_names);
+#print encode_json(\%fields),"\n";
+patch_json($browser, $url, \%fields);
 
 exit (0);
