@@ -96,6 +96,9 @@ sub print_field {
 	if ($name =~ m/^f/) {
 		return "milestone";
 	}
+	if ($name =~ m/^p/) {
+		return "proposal";
+	}
 	if ($name =~ m/^a/) {
 		return "all";
 	}
@@ -220,14 +223,25 @@ foreach my $field (@print_fields) {
 	if ($field eq "all") {
 		print Dumper($issue_info);
 	} else {
+		my $grep;
+		if ($field eq "proposal") {
+			$grep = "https://lists.oasis-open.org/archives/virtio\\S*";
+			$field = "body";
+		} else {
+			$grep = undef;
+		}
 		if (ref($$issue_info{$field}) eq 'ARRAY') {
 			foreach my $n (@{$$issue_info{'fields'}{$field}}) {
 				if (ref($n) eq 'HASH') {
-					$n = $$n{'name'};
+					$n = $$n{'title'};
 				}
 				
 				$n =~ s/\r//g;
-				print $n, "\n";
+				if (defined($grep) and $n =~ m/($grep)/) {
+					print $1, "\n";
+				} else {
+					print $n, "\n";
+				}
 			}
 		} elsif (defined($$issue_info{$field})) {
 			my $n = $$issue_info{$field};
@@ -235,7 +249,11 @@ foreach my $field (@print_fields) {
 				$n = $$n{'title'};
 			}
 			$n =~ s/\r//g;
-			print $n, "\n";
+			if (defined($grep) and $n =~ m/($grep)/) {
+				print $1, "\n";
+			} else {
+				print $n, "\n";
+			}
 		}
 	}
 }
