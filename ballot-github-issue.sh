@@ -5,7 +5,7 @@ cd /scm/scripts
 ISSUE=$1
 
 if
-	./virtio-jira.pl -p s $ISSUE > /tmp/summary
+	./virtio-jira.pl -p t $ISSUE > /tmp/summary
 then
 	TITLE=$(cat /tmp/summary)
 else

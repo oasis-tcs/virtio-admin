@@ -40,7 +40,7 @@ my $TOKEN = $RC::TOKEN;
 
 sub help_and_exit {
 	print "Usage: \n";
-	print "   virtio-github.pl [-s[tate] open|closed] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](s[ummary]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s]t[atus]|a[ll])]... <issue#>\n";
+	print "   virtio-github.pl [-s[tate] open|closed] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](t[itle]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s][tatus]|a[ll])]... <issue#>\n";
 	exit 1;
 }
 
@@ -84,17 +84,14 @@ sub print_field {
 		return "title";
 	}
 	#Note: test st before s
-	if ($name =~ m/^st/) {
-		return "state";
-	}
 	if ($name =~ m/^s/) {
-		return "summary";
+		return "state";
 	}
 	if ($name =~ m/^d/) {
 		return "body";
 	}
 	if ($name =~ m/^f/) {
-		return "milestone";
+		return "labels";
 	}
 	if ($name =~ m/^p/) {
 		return "proposal";
@@ -230,15 +227,22 @@ foreach my $field (@print_fields) {
 		} else {
 			$grep = undef;
 		}
+		if ($field eq "labels") {
+			$grep = "^virtio-v\\S*";
+		} else {
+			$grep = undef;
+		}
 		if (ref($$issue_info{$field}) eq 'ARRAY') {
-			foreach my $n (@{$$issue_info{'fields'}{$field}}) {
+			foreach my $n (@{$$issue_info{$field}}) {
 				if (ref($n) eq 'HASH') {
-					$n = $$n{'title'};
+					$n = $$n{'name'};
 				}
 				
 				$n =~ s/\r//g;
-				if (defined($grep) and $n =~ m/($grep)/) {
-					print $1, "\n";
+				if (defined($grep)) {
+					if ($n =~ m/($grep)/) {
+						print $1, "\n";
+					}
 				} else {
 					print $n, "\n";
 				}
@@ -246,11 +250,13 @@ foreach my $field (@print_fields) {
 		} elsif (defined($$issue_info{$field})) {
 			my $n = $$issue_info{$field};
 			if (ref($n) eq 'HASH') {
-				$n = $$n{'title'};
+				$n = $$n{'name'};
 			}
 			$n =~ s/\r//g;
-			if (defined($grep) and $n =~ m/($grep)/) {
-				print $1, "\n";
+			if (defined($grep)) {
+				if ($n =~ m/($grep)/) {
+					print $1, "\n";
+				}
 			} else {
 				print $n, "\n";
 			}
