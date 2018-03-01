@@ -24,31 +24,23 @@ use Data::Dumper;
 
 }
 
-if (not defined $RC::TOKEN and
-    (not defined $RC::USERNAME or not defined $RC::PASSWORD)) {
+if (not defined $RC::TOKEN) {
 	print STDERR <<EOF
 Unable to find username/password.
 Please create $ENV{"HOME"}/.virtio-github-rc
 
 In the following format (without <>):
 
-\$USERNAME = '<username>';
-\$PASSWORD = '<password>';
-
-Or
-
 \$TOKEN = '<personal-access-token>';
 EOF
 }
 
-my $USERNAME = $RC::USERNAME;
-my $PASSWORD = $RC::PASSWORD;
 my $TOKEN = $RC::TOKEN;
 
 
 sub help_and_exit {
 	print "Usage: \n";
-	print "   virtio-jira.pl [-o[pen]] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](s[ummary]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s]t[atus]|a[ll])]... <issue#>\n";
+	print "   virtio-github.pl [-s[tate] open|closed] [[-]-f[ix-versions][=| ]<version>]... [-c[omment] <body>] [[-]-p[rint][=| ](s[ummary]|d[escription]|p[roposal]|r[esolution]|f[ixVersions]|v[ersions]|[s]t[atus]|a[ll])]... <issue#>\n";
 	exit 1;
 }
 
@@ -61,10 +53,10 @@ my @print_fields = ();
 
 my $comment;
 
-my $open = 0;
-if (defined($ARGV[0]) and $ARGV[0] =~ m/^-?-o/) {
-	$open = 1;
+my $state;
+if (defined($ARGV[0]) and $ARGV[0] =~ m/^-?-s/) {
 	shift;
+	$state = shift;
 }
 
 while (defined($ARGV[0]) and $ARGV[0] =~ m/^-?-f/) {
@@ -134,6 +126,27 @@ if (not defined($issue)
 	help_and_exit();
 }
 
+my $url = "https://api.github.com/repos/oasis-tcs/virtio-spec/issues/$issue";
+my $browser = LWP::UserAgent->new;
+
+sub patch_json {
+	my ($browser, $url, $jsonhash) = @_;
+	my $response;
+	my $json;
+	my $req;
+
+	$json = encode_json($jsonhash);
+	$req = HTTP::Request->new('PATCH', $url);
+	$req->header('Content-Type' => 'application/json');
+#	$req->header('Accept', 'application/json');
+	$req->header('Authorization' => "token $TOKEN");
+	$req->content($json);
+	$response = $browser->request( $req );
+	die 'POST Error',
+	    "\n ", $response->status_line, "\n at $url\n Aborting"
+		    unless $response->code() eq 302 or $response->is_success;
+}
+
 sub post_json {
 	my ($browser, $url, $jsonhash) = @_;
 	my $response;
@@ -151,9 +164,6 @@ sub post_json {
 	    "\n ", $response->status_line, "\n at $url\n Aborting"
 		    unless $response->code() eq 302 or $response->is_success;
 }
-
-my $browser = LWP::UserAgent->new;
-my $url = "https://api.github.com/repos/oasis-tcs/virtio-spec/issues/$issue";
 
 if (defined($comment)) {
 	my %data = ('body' => $comment);
@@ -230,34 +240,16 @@ foreach my $field (@print_fields) {
 	}
 }
 
-if ($open or $#fix_version_names >= 0) {
-#authenticate
-	$url="https://issues.oasis-open.org/rest/auth/1/session";
-	my %auth = ('username' => $USERNAME, 'password' => $PASSWORD);
-	my $auth_info = post_json($browser, $url, \%auth);
-}
+# if ($state or $#fix_version_names >= 0) {
+# #authenticate
+# 	my %auth = ('username' => $USERNAME, 'password' => $PASSWORD);
+# 	my $auth_info = post_json($browser, $url, \%auth);
+# }
+#
 
-
-if ($open) {
-#	$url = "https://issues.oasis-open.org//rest/api/2/issue/$issue/transitions?expand=transitions.fields";
-	$url = "https://issues.oasis-open.org//rest/api/2/issue/$issue/transitions";
-	my $transitions_info = get_json($browser, $url);
-	my $id;
-	foreach my $t (@{$$transitions_info{"transitions"}}) {
-		if ($$t{"name"} =~ m/^Open/) {
-			$id = $$t{"id"};
-			last;
-		}
-	}
-	if (not(defined($id))) {
-		print STDERR "Transition to Open state not enabled for this issue.\n";
-		print STDERR "Possible transitions: ", Dumper($transitions_info), "\n";
-		exit(3);
-	}
-	$url = "https://issues.oasis-open.org//rest/api/2/issue/$issue/transitions";
-	my %status = ('id' => $id);
-	my %transitions = ('transition' => \%status);
-	post_json($browser, $url, \%transitions);
+if (defined $state) {
+	my %data = ('state' => $state);
+	patch_json($browser, $url, \%data);
 }
 
 #get versions
