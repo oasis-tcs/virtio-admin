@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-cd /scm/scripts
-
 ISSUE=$1
 
 if
