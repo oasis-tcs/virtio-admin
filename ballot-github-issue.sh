@@ -1,18 +1,16 @@
 #!/usr/bin/bash
 
-cd /scm/scripts
-
 ISSUE=$1
 
 if
-	./virtio-jira.pl -p t $ISSUE > /tmp/summary
+	./virtio-github.pl -p t $ISSUE > /tmp/summary
 then
 	TITLE=$(cat /tmp/summary)
 else
 	exit 1
 fi
 
-echo -n "Resolve $ISSUE: $TITLE" > /tmp/title
+echo -n "Resolve Issue #$ISSUE: $TITLE" > /tmp/title
 
 if
 	./virtio-github.pl -p f $ISSUE > /tmp/fixVersions
@@ -54,7 +52,7 @@ If you don't have an opinion, please vote Abstain.
 
 I move that:
 The TC agrees to resolve the following specification issue:
-$ISSUE: $TITLE
+Issue #$ISSUE: $TITLE
 --------------------------------------
 EOF
 cat /tmp/prob >> /tmp/description
