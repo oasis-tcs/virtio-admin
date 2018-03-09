@@ -224,10 +224,7 @@ foreach my $field (@print_fields) {
 		if ($field eq "proposal") {
 			$grep = "https://lists.oasis-open.org/archives/virtio\\S*";
 			$field = "body";
-		} else {
-			$grep = undef;
-		}
-		if ($field eq "labels") {
+		} elsif ($field eq "labels") {
 			$grep = "^virtio-v\\S*";
 		} else {
 			$grep = undef;
