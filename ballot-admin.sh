@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-cd /scm/scripts
-
 echo -n "do XYZ" > /tmp/title
 
 
