@@ -632,6 +632,10 @@ die 'Error accessing',
 
 #print $response->content, "\n";
 $url = URI->new_abs($response->header('Location'), $url);
-print "BALLOT CREATED AT URL: $url\n";
+print "BALLOT VOTING AT URL: $url\n";
+exit (11) unless $url =~ m/\?id=([0-9]+)$/;
+my $id = $1;
+my $publicurl = "https://www.oasis-open.org/committees/ballot.php?id=" . $id;
+print "BALLOT CREATED AT URL: $publicurl\n";
 
 exit 0;
