@@ -34,7 +34,10 @@
 <strong>Clarification of OASIS TC process as applied to the Virtio TC:</strong>
 <dl>
 <dt><strong>Virtio TC Meetings:</strong></dt>
-<dd>The Virtio TC has adopted a standing rule to conduct business only by electronic ballot, without Meetings.<dd>
+<dd>The Virtio TC has adopted a standing rule to conduct business only by electronic ballot, without Meetings.
+The list of all current and past ballots can be found on
+<A HREF="https://www.oasis-open.org/committees/ballots.php?wg_abbrev=virtio">this page</A>.
+</dd>
 <dt><strong>Gaining voting rights</strong></dt>
 <dd>A TC Member who lacks voting rights shall only gain voting rights
    after requesting this from the TC chair by submitting the request to the
