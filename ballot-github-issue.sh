@@ -2,6 +2,8 @@
 
 ISSUE=$1
 
+ISSUE=${ISSUE/#https:\/\/github.com\/oasis-tcs\/virtio-spec\/issues\//}
+
 if
 	./virtio-github.pl -p t $ISSUE > /tmp/summary
 then
