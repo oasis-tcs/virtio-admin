@@ -121,6 +121,10 @@ if ($#fix_version_names < 0 and $#print_fields < 0) {
 }
 
 my $issue = $ARGV[0];
+
+if (defined($issue)) {
+	$issue =~ s#^https://github.com/oasis-tcs/virtio-spec/issues/##;
+}
 if (not defined($issue)
     or not ($issue =~ m/^[0-9]+$/i)) {
 	help_and_exit();
