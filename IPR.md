@@ -13,6 +13,28 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 Red Hat has filed several United States patent applications that might become
 essential to an OASIS Standards Final Deliverable.
 
+The US Patent Nos. 9811260 and 9311164 "System and Method for Ballooning wth
+Assigned Devices", the US Patent No. 9934157 and the US Publication No.
+20180225221 "Post-Copy VM Migration Speedup Using Free Page Hinting", the US
+Publication No. 20170147371 "Virtual Machine Migration Using Memory Page
+Hints", the US Patent No. 9965311 "Application of a Pattern to Inactive Pages
+in Guest Memory", the US Patent No. 10169088 "Lockless Free Memory Ballooning
+for Virtual Machines", the US Patent Nos. 10083058 and 9672062 "Batched Memory
+Page Hinting" and the US Publication No. 20180239707 "Page Cache Management
+During Migration" are relevant to section "Traditional Memory Balloon Device"
+of the Virtual I/O Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
 The US Patent No. 10013199, "Translation Bypass by Host IOMMU for Systems with
 Virtual IOMMU" as well as the unpublished applications are relevant to section
 "Device Types" of the Virtual I/O Device (VIRTIO) specification.
