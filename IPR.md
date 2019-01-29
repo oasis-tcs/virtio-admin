@@ -8,6 +8,30 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 9948568, "Packet Size Control Using Maximum Transmission
+Units for Facilitating Packet Transmission", the US Patent No. 10129148,
+"Table-Based Load Balancing for Bonded Network Interfaces", the US Patent No.
+9785459 "Managed Network Filter/Forward Programming in a Virtualization System
+by an Agent More Privileged than the Hypervisor", the US Patent No. 9934058 and
+the US Publication No. 20160127252 "Guest-Influenced Packet Transmission", the
+US Patent Nos. 10162662, 9262195 and 10146568 "Manageable External Wake of
+Virtual Machines", the US Patent No. 9721091 "Guest-Driven Host Execution", the
+US Patent No. 9094351 "Implicit and Dynamic Receive Queue Assignment in
+Virtualized Systems" and the US Patent No. 10027604 "Implicit Dynamic Receive
+Queue Steering for Unidirectional Flows in Virtualized Systems" are relevant to
+section "Networking Device" of the Virtual I/O Device (VIRTIO) specification.
+
+Should these patents be identified as essential to the compliant implementation
+of an OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will
+operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC
+Requirements described in section 10.3 of the OASIS IPR Policy (as of the date
+of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, Feb 14, 2018
 
 Red Hat has filed several United States patent applications that might be
@@ -146,17 +170,24 @@ Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
 by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
 section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
 
-#### Statement regarding IPR, submitted by Red Hat, April 7, 2016
+#### Statement regarding IPR, submitted by Red Hat, April 7, 2016 and amended Jan 29, 2019
 
 To: OASIS
 From: Michael S. Tsirkin, Red Hat
-Date: April 7, 2016
+Date: April 7, 2016 amended Jan 29, 2019
 
-Red Hat has filed a United States patent application that might become essential to an OASIS Standards Final Deliverable.
+Red Hat has filed a United States patent application that might become
+essential to an OASIS Standards Final Deliverable.
 
-US Publication No. 20150188833, titled "Overhead management for virtual machines" is relevant to section "Networking Device" of the Virtual I/O Device (VIRTIO) specification.
+The US Patent No. 10164892, titled "Overhead management for virtual machines",
+is relevant to section "Networking Device" of the Virtual I/O Device (VIRTIO)
+specification.
 
-Should this patent application be issued as a patent, and be identified as essential to the compliant implementation of an OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+Should this patent be identified as essential to the compliant implementation
+of an OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will
+operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC
+Requirements described in section 10.3 of the OASIS IPR Policy (as of the date
+of this disclosure).
 
 #### Statement regarding IPR, submitted by Red Hat, April 7, 2016 and amended Jan 24, 2018
 
