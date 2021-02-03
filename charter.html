@@ -1,0 +1,133 @@
+<html>
+<title>OASIS Virtual I/O Device (VIRTIO) Technical Committee TC charter</title>
+<body>
+  <ol id="charter-outline" class="bold-lower-alpha">
+    <li>
+      TC Name
+      <p>OASIS Virtual I/O Device (VIRTIO) Technical Committee</p>
+    </li>
+    <li>Statement of Purpose
+      <p>
+        Background:
+      </p>
+      <p>
+        Hardware virtualization allows multiple operating systems ("guests") to share the same hardware ("host") managed by host software ("hypervisor").
+      </p>
+      <p>
+        These guests need networks, storage, consoles and similar but non-virtualization-aware standard devices cannot be shared, or guests may not be permitted to access host devices at all. The simplest solution is to emulate a device expected by the guest operating system, but this can be slow and/or complicated. As most operating systems have facilities for adding drivers for new physical hardware, we can use the same facilities to add drivers for devices which are easier and/or more efficient to implement in software.
+      </p>
+      <p>
+        As every hypervisor is different, they tend to implement hypervisor-specific devices, requiring every guest to support a new device for that environment. For example, Linux currently supports completely separate drivers for eight different virtualization platforms, with most drivers being sub-optimal. In 2007, an attempt was made to implement a hypervisor and OS-agnostic device model in Linux guests and the KVM hypervisor over the standard PCI bys. This is now also supported by the VirtualBox hypervisor (2010) and FreeBSD guests (2011).
+      </p>
+      <p>
+        A Draft Specification
+      </p>
+      <p>
+        In 2009, as interest accumulated, the "Virtio PCI Card Specification" was published, with appendices for network, block storage and console devices. The emphasis was that virtual devices should be simple, look like driver authors expect physical devices to look, should be extensible, and that they should perform well.
+      </p>
+      <p>
+        Even at the time, there were implementations of virtio devices over non-PCI transports, and in 2011 the simplified "mmio" transport was added as an Appendix, as well as a "remote processor message" device which is actually used to communicate to a separate, physical CPU, rather than a virtual guest.
+      </p>
+      <p>
+        The years of experience have highlighted some of the implementation and design mistakes: enhancements have worked around many of them, but at cost of simplicity. Implementation bugs have also caused occasional anguish.
+      </p>
+      <p>
+        A 1.0 Specification
+      </p>
+      <p>
+        Our goal is to keep the good, discard the bad, and make the ugly optional. In particular, we will try not to break too much, and ensure it's possible for devices to support both 1.0 compliant and legacy guest drivers.
+      </p>
+    </li>
+    <li>
+      Scope
+      <p>
+        The "Virtio PCI Card Specification" 0.9.5, minus the Appendix H, shall be used as a starting point (referred to as "legacy"). Note that we expect the final output of this TC to be incompatible with that specification, though it will be possible for virtual devices to support both legacy and modern guest drivers.
+      </p>
+      <p>
+        The TC will produce an OASIS Standard by refining and documenting existing implementations and practice. After publication of the initial OASIS Standard, the TC may choose to develop a Version 2.0 standard that builds on lessons learned and identified trends and that may result in a significantly different architecture and approach. Until then, the TC shall not throw out the baby with the bathwater, boil the ocean, or embark on a PhD research topic.
+      </p>
+      <p>
+        The TC will consider one or more buses for virtual devices, including PCI. It will consider various kinds of devices, including network devices. Each part of the OASIS Standard will be considered in terms of portability, simplicity, least-surprise for driver authors, extensibility and performance. In particular, the effect of future radical extensions (such as layout changes) will be considered.
+      </p>
+    </li>
+    <li>
+      Deliverables
+      <ol class="spaced decimal">
+        <li>
+          Specification of feature negotiation, configuration and queues, from both driver and device points of view.
+          <ol class="vanilla-lower-alpha">
+            <li>
+              Specifically for virtio over PCI.
+            </li>
+            <li>
+              Specifically for virtio over mmio.
+            </li>
+            <li>
+              Specifically for other transports as decided by TC.
+            </li>
+          </ol>
+        </li>
+        <li>
+          Specification of device-specific configuration.
+          <ol class="vanilla-lower-alpha">
+            <li>
+              For network devices.
+            </li>
+            <li>
+              For block storage devices.
+            </li>
+            <li>
+              For entropy devices.
+            </li>
+            <li>
+              For console devices.
+            </li>
+            <li>
+              For memory ballooning devices.
+            </li>
+            <li>
+              For SCSI endpoint devices.
+            </li>
+            <li>
+              Non-normative advice for designing new device types.
+            </li>
+            <li>
+              List of reserved device numbers for non-specified device types. (This section is likely to see ongoing maintenance before 2.0).
+            </li>
+            <li>
+              List of reserved feature numbers for non-specified features for each device type. (This section is likely to see ongoing maintenance before 2.0).
+            </li>
+          </ol>
+        </li>
+        <li>
+          Non-normative code examples for operation of guest/host side of buffers.
+        </li>
+        <li>
+          Non-normative guide for creating devices which also support previous mode(s).
+        </li>
+      </ol>
+      <p>
+        We anticipate deliverables (1) and (2) to be a single work, and (3) and (4) to be separate works. The projected delivery dates are 12 to 16 months after the first meeting.
+      </p>
+    </li>
+    <li>
+      IPR Mode
+      <p>
+        Non-Assertion Mode
+      </p>
+    </li>
+    <li>
+      Audience
+      <p>
+        Developers of hypervisors and device driver authors.
+      </p>
+    </li>
+    <li>
+      Language
+      <p>
+        US English.
+      </p>
+    </li>
+  </ol>
+</body>
+</html>
