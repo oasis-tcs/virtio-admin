@@ -17,7 +17,7 @@
         These guests need networks, storage, consoles and similar but non-virtualization-aware standard devices cannot be shared, or guests may not be permitted to access host devices at all. The simplest solution is to emulate a device expected by the guest operating system, but this can be slow and/or complicated. As most operating systems have facilities for adding drivers for new physical hardware, we can use the same facilities to add drivers for devices which are easier and/or more efficient to implement in software.
       </p>
       <p>
-        As every hypervisor is different, they tend to implement hypervisor-specific devices, requiring every guest to support a new device for that environment. For example, Linux currently supports completely separate drivers for eight different virtualization platforms, with most drivers being sub-optimal. In 2007, an attempt was made to implement a hypervisor and OS-agnostic device model in Linux guests and the KVM hypervisor over the standard PCI bys. This is now also supported by the VirtualBox hypervisor (2010) and FreeBSD guests (2011).
+        As every hypervisor is different, they tend to implement hypervisor-specific devices, requiring every guest to support a new device for that environment. For example, in 2013 Linux supported completely separate drivers for eight different virtualization platforms, with most drivers being sub-optimal. In 2007, an attempt was made to implement a hypervisor and OS-agnostic device model in Linux guests and the KVM hypervisor over the standard PCI bus. This is now supported by multiple other hypervisors.
       </p>
       <p>
         A Draft Specification
