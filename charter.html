@@ -59,6 +59,20 @@
       <p>
         Starting from version 1.1, each version of the specification shall be used as a starting point for the development of the next version of the specification.
 	</p>
+	<p>
+	 Note that we expect the output of this TC to be compatible with all previous versions of the specification, such that
+	 a compliant devices and drivers remain compliant with future versions of the specification.
+	In particular, special care will be taken such that drivers compliant with a certain version of the specification can also support devices compliant with all past versions of the specification, and vice versa.
+	</p>
+	<p>
+	When correcting defects in the specification, e.g. by adding new normative statements, the TC will
+	also take special care to avoid declaring existing working implementations non-compliant
+	as far as possible.
+	The TC will take into account factors such as existance and prevalence of implementations with the
+	defective behaviour and whether these implementations are working and robust.
+	When in doubt, the TC will err on the conservative side, such as by adding new feature bits
+	or by making the corrected behaviour recommended but not mandatory.
+	</p>
       <p>
         The TC will consider one or more buses for virtual devices, including PCI. It will consider various kinds of devices, including network devices. Each part of the OASIS Standard will be considered in terms of portability, simplicity, least-surprise for driver authors, extensibility and performance. In particular, the effect of future radical extensions (such as layout changes) will be considered.
       </p>
