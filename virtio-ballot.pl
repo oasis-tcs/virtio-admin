@@ -22,6 +22,12 @@ my $DESCRIPTION=$ARGV[2];
 $DESCRIPTION =~ s/^\s*//;
 $DESCRIPTION =~ s/\s*$//;
 
+$DESCRIPTION =~ s/&/&amp;/sg;
+$DESCRIPTION =~ s/</&lt;/sg;
+$DESCRIPTION =~ s/>/&gt;/sg;
+$DESCRIPTION =~ s/"/&quot;/sg;
+$DESCRIPTION =~ s/'/&apos;/sg;
+
 {
 	package RC;
 	for my $file ("$ENV{HOME}/.virtio-tc-rc")
