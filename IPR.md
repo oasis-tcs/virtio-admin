@@ -8,6 +8,108 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20210303324 titled "HYPERVISOR TASK EXECUTION MANAGEMENT FOR VIRTUAL MACHINES"
+as well as  an unpublished application titled
+"BINARY EXECUCTION BY A VIRTUAL DEVICE"
+are relevant to section "Device Types" of the Virtual I/O Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20210019267 titled "SAFE VIRTUAL MACHINE PHYSICAL DEVICE ACCESS FOR NETWORK FUNCTION VIRTUALIZATION"
+as well as an unpublished applications titled
+"IMPROVING MEMORY ACCESS HANDLING FOR NESTED VIRTUAL MACHINES"
+and
+"IMPROVING VIRTUAL DEVICE TRANSLATION FOR NESTED VIRTUAL MACHINES"
+are relevant to section "IOMMU Device" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20210064443 titled "HARDWARE OFFLOAD SUPPORT FOR AN OPERATING SYSTEM OFFLOAD INTERFACE USING OPERATION CODE VERIFICATION",
+US Publication No. 20210144177 titled "IMPLEMENTING A SERVICE MESH IN THE HYPERVISOR",
+US Publication No. 20210149701 titled "NETWORK UPDATES FOR VIRTUAL MACHINE MIGRATION",
+US Publication No. 20210149702 titled "VIRTUAL MACHINE MIGRATION DOWNTIME REDUCTION USING A MULTICAST ADDRESS",
+US Publication No. 20210152642 titled "ZERO-COPY FORWARDING FOR NETWORK FUNCTION VIRTUALIZATION",
+US Publication No. 20210240645 titled "REMOTE DIRECT MEMORY ACCESS BASED NETWORKING GATEWAY",
+US Publication No. 20210306258 titled "LOCATION CHANGE NOTIFICATION HANDLING",
+US Publication No. 20210349746 titled "EFFICIENT HANDLING OF NETWORK TOPOLOGY CHANGE NOTIFICATION FOR VIRTUAL MACHINES",
+US Publication No. 20220050700 titled "VIRTUAL BOND FOR EFFICIENT NETWORKING OF VIRTUAL MACHINES"
+as well as unpublished patent applications titled
+"MALICIOUS PACKET FILTERING IN A VIRTUALIZATION SYSTEM",
+"REVERSE VIRTUAL ETHERNET PORT AGGREGATOR BRIDGING FOR SINGLE ROOT I/O VIRTUALIZATION",
+"SECURE CONTROL OF PACKET FILTER PROGRAMS BY USER SPACE PROCESSES IN VIRTUAL MACHINES"
+and
+"VIRTUAL NETWORKING FOR SPECIAL TYPES OF NESTED VIRTUAL MACHINES"
+are relevant to section "Network Device" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+Red Hat has filed a United States patent application that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20200379791 titled "ZERO COPY MESSAGE RECEPTION FOR APPLICATIONS"
+is relevant to section "Socket Device" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should this patent application be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20190243677 titled "MEMORY DEDUPLICATION BASED ON GUEST PAGE HINTS",
+US Publication No. 20200278878 titled "RESETTING PERSISTENT BALLOON MEMORY FOR FRAGMENTATION REDUCTION",
+US Publication No. 20210182191 titled "FREE MEMORY PAGE HINTING BY VIRTUAL MACHINES",
+US Publication No. 20210303356 titled "FLEXIBLE REVERSE BALLOONING FOR NESTED VIRTUAL MACHINES",
+US Publication No. 20210342260 titled "INDIRECT INTERFACE FOR VIRTUAL MACHINE FREE PAGE HINTING"
+as well as unpublished patent applications titled
+"MEMORY BALLOONING RELATED MEMORY ALLOCATION TECHNIQUES FOR VIRTUAL MACHINES"
+and
+"NON FRAGMENTING MEMORY BALLOONING"
+are relevant to section "Traditional Memory Balloon Device" of the Virtual I/O
+Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019
 
 Red Hat has filed several United States patent applications that might become
@@ -23,6 +125,106 @@ for Virtual Machines", the US Patent Nos. 10083058 and 9672062 "Batched Memory
 Page Hinting" and the US Publication No. 20180239707 "Page Cache Management
 During Migration" are relevant to section "Traditional Memory Balloon Device"
 of the Virtual I/O Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20190243677 titled "MEMORY DEDUPLICATION BASED ON GUEST PAGE HINTS",
+US Publication No. 20200278878 titled "RESETTING PERSISTENT BALLOON MEMORY FOR FRAGMENTATION REDUCTION",
+US Publication No. 20210182191 titled "FREE MEMORY PAGE HINTING BY VIRTUAL MACHINES",
+US Publication No. 20210303356 titled "FLEXIBLE REVERSE BALLOONING FOR NESTED VIRTUAL MACHINES",
+US Publication No. 20210342260 titled "INDIRECT INTERFACE FOR VIRTUAL MACHINE FREE PAGE HINTING"
+as well as unpublished patent applications titled
+"MEMORY BALLOONING RELATED MEMORY ALLOCATION TECHNIQUES FOR VIRTUAL MACHINES"
+and
+"NON FRAGMENTING MEMORY BALLOONING"
+are relevant to section "Traditional Memory Balloon Device" of the Virtual I/O
+Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+
+US Publication No. 20210342279 titled "NON-INTERRUPTING PORTABLE PAGE REQUEST INTERFACE"
+and an unpublished patent application titled
+"IMPROVING MEMORY ACCESS HANDLING FOR PERIPHERAL COMPONENT INTERCONNECT DEVICES"
+are relevant to section "Virtio Over PCI Bus" of the Virtual I/O
+Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+
+US Publication No. 20210294686 titled "FAST MEMORY MAPPED IO SUPPORT BY REGISTER SWITCH",
+US Publication No. 20210342176 titled "HYPERCALL ACCELERATION FOR NESTED VIRTUAL MACHINES",
+US Publication No. 20210342466 titled "SECURE MODULAR DEVICES"
+and
+US Publication No. 20210357339 titled "EFFICIENT MANAGEMENT OF BUS BANDWIDTH FOR MULTIPLE DRIVERS"
+are relevant to section "Virtio Transport Options" of the Virtual I/O
+Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20210342272 titled "MEMORY PAGE FAULT HANDLING FOR NETWORK INTERFACE DEVICES IN A VIRTUALIZED ENVIRONMENT"
+as well as an unpublished patent application titled
+"PAGE FAULT SUPPORT FOR VIRTUAL MACHINE NETWORK ACCELERATORS"
+are relevant to sections "Virtqueues" and "Network Device" of the Virtual I/O
+Device (VIRTIO) specification.
+
+Should one of these patent applications be issued as a patent, and be
+identified as essential to the compliant implementation of an OASIS Standards
+Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
+by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
+section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+
+Red Hat has filed several United States patent applications that might become
+essential to an OASIS Standards Final Deliverable.
+
+US Publication No. 20210019261 titled "MEMORY CACHE-LINE BOUNCE REDUCTION FOR POINTER RING STRUCTURES",
+US Publication No. 20210089307 titled "FAST DESCRIPTOR ACCESS FOR VIRTUAL NETWORK DEVICES"
+as well as unpublished patent applications titled
+"A SYSTEM TO USE DESCRIPTOR RINGS FOR I/O COMMUNICATION",
+"EFFICIENT OUT OF ORDER REQUEST COMPLETION",
+"MEMORY EFFICIENT VIRTUAL ADDRESS MANAGEMENT FOR SYSTEM CALLS"
+and
+"REVERSE ORDER QUEUE UPDATES BY VIRTUAL DEVICES"
+are relevant to section "Virtqueues" of the Virtual I/O Device (VIRTIO)
+specification.
 
 Should one of these patent applications be issued as a patent, and be
 identified as essential to the compliant implementation of an OASIS Standards
