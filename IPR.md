@@ -13,6 +13,30 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 Red Hat has been issued several United States patents that might be, or might become
 essential to an OASIS Standards Final Deliverable.
 
+The US Patent No. 10073710 titled "HOST-DRIVEN APPLICATION MEMORY PROTECTION FOR VIRTUAL MACHINES",
+the US Patent No. 10698784 titled "ROBUST PERIPHERAL COMPONENT INTERCONNECT SURPRISE REMOVAL DETECTION",
+the US Patent No. 11221869 titled "MEMORY EFFICIENT HOST VIRTUAL ADDRESS MANAGEMENT FOR HYPERCALLS",
+the US Patent No. 8725948 titled "OPCODE LENGTH CACHING",
+the US Patent No. 8935693 titled "HOST-TO-GUEST CHANNEL FOR GUEST DEVICE IDENTIFICATION",
+the US Patent No. 9846610 titled "PAGE FAULT-BASED FAST MEMORY-MAPPED I/O FOR VIRTUAL MACHINES",
+the US Patent No. 9916173 titled "FACILITATING EXECUTION OF MMIO BASED INSTRUCTIONS",
+the US Patent No. 9983893 titled "HANDLING MEMORY-MAPPED INPUT-OUTPUT (MMIO) BASED INSTRUCTIONS USING FAST ACCESS ADDRESSES"
+as well as
+the US Patent No. 9990216 titled "PROVIDING HYPERCALL INTERFACE FOR VIRTUAL MACHINES"
+are relevant to section "Virtio Transport Options" of the Virtual I/O Device
+(VIRTIO) specification.
+
+Should one of these patents be identified as essential to the compliant
+implementation of an OASIS Standards Final Deliverable produced by the VIRTIO
+TC, Red Hat will operate, as specified by the VIRTIO TC, under the
+Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR
+Policy (as of the date of this disclosure).
+
+#### Statement regarding IPR, submitted by Red Hat, April 11, 2022
+
+Red Hat has been issued several United States patents that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
 The US Patent No. 10606631 titled "SECURITY ENHANCED HYPERVISOR USERSPACE NOTIFICATIONS",
 the US Patent No. 11074094 titled "SECURING HYPERCALL SUPPORT FOR USER SPACE PROCESSES IN VIRTUAL MACHINES"
 as well as
