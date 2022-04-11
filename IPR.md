@@ -8,6 +8,35 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019 and amended April 11, 2022
+
+Red Hat has been issued a United States patent that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 10051087 titled "DYNAMIC CACHE-EFFICIENT EVENT SUPPRESSION FOR NETWORK FUNCTION VIRTUALIZATION",
+the US Patent No. 10152275 titled "REVERSE ORDER SUBMISSION FOR POINTER RINGS",
+the US Patent No. 10216453 titled "REVERSE SLOT INVALIDATION FOR POINTER RINGS",
+the US Patent No. 10372608 titled "SPLIT HEAD INVALIDATION FOR CONSUMER BATCHING IN POINTER RINGS",
+the US Patent No. 10545697 titled "REVERSE ORDER REQUEST QUEUEING BY PARA-VIRTUAL DEVICE DRIVERS",
+the US Patent No. 10649686 titled "MEMORY CACHE PRESSURE REDUCTION FOR POINTER RINGS",
+the US Patent No. 10649784 titled "REVERSE ORDER QUEUE UPDATES BY VIRTUAL DEVICES",
+the US Patent No. 10963407 titled "REMOTE DIRECT MEMORY ACCESS BASED NETWORKING GATEWAY",
+the US Patent No. 11106587 titled "MEMORY CACHE-LINE BOUNCE REDUCTION FOR SHARED I/O RING STRUCTURES",
+the US Patent No. 11237836 titled "REVERSE ORDER QUEUE UPDATES BY VIRTUAL DEVICES",
+the US Patent No. 9569223 titled "MIXED SHARED/NON-SHARED MEMORY TRANSPORT FOR VIRTUAL MACHINES",
+the US Patent No. 9600314 titled "SCHEDULER LIMITED VIRTUAL DEVICE POLLING",
+the US Patent No. 9766917 titled "LIMITED VIRTUAL DEVICE POLLING BASED ON VIRTUAL CPU PRE-EMPTION"
+as well as
+the US Patent No. 9904564 titled "POLICY ENFORCEMENT BY HYPERVISOR PARAVIRTUALIZED RING COPYING"
+are relevant to section "Virtqueues" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should one of these patents be identified as essential to the compliant
+implementation of an OASIS Standards Final Deliverable produced by the VIRTIO
+TC, Red Hat will operate, as specified by the VIRTIO TC, under the
+Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR
+Policy (as of the date of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, April 11, 2022
 
 Red Hat has been issued a United States patent that might be, or might become
@@ -664,25 +693,6 @@ Patent Nos. 9235427 and 10185572 and the US Publication No.  20160124753
 9235427, 10185572 and the US Publication No. 20160124753 "Operating System Load
 Device Resource Selection" are relevant to section "Virtio Over PCI Bus" of the
 Virtual I/O Device (VIRTIO) specification.
-
-Red Hat is unable to provide more specific information regarding the
-unpublished applications, until such time as the applications are published or
-the patents are issued.
-
-Should one of these patent applications be issued as a patent, and be
-identified as essential to the compliant implementation of an OASIS Standards
-Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
-by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
-section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
-
-#### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019
-
-Red Hat has filed, or is in the process of filing, several United States patent
-applications that might be essential to an OASIS Standards Final Deliverable.
-
-The US Patent No. 10152275 "Reverse Order Submission for Pointer Rings" as well
-as the unpublished applications are relevant to section "Virtqueues" of
-the Virtual I/O Device (VIRTIO) specification.
 
 Red Hat is unable to provide more specific information regarding the
 unpublished applications, until such time as the applications are published or
