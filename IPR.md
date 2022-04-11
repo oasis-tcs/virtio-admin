@@ -8,6 +8,25 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019 and amended April 11, 2022
+
+Red Hat has been issued several United States patents that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 10013199 titled "TRANSLATION BYPASS BY HOST IOMMU FOR SYSTEMS WITH VIRTUAL IOMMU",
+the US Patent No. 10140148 titled "COPY BASED IOMMU EMULATION FOR OUT-OF-PROCESS EMULATED DEVICES",
+the US Patent No. 10198202 titled "SAFE USERSPACE DEVICE ACCESS FOR NETWORK FUNCTION VIRTUALIZATION USING AN IOMMU TO MAP SUPERVISOR MEMORY TO A RESERVED RANGE OF APPLICATION VIRTUAL ADDRESSES"
+as well as
+the US Patent No. 10795591 titled "SAFE USERSPACE DEVICE ACCESS FOR NETWORK FUNCTION VIRTUALIZATION USING AN IOMMU TO MAP SUPERVISOR MEMORY TO A RESERVED RANGE OF APPLICATION VIRTUAL ADDRESSES"
+are relevant to section "IOMMU Device" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should one of these patents be identified as essential to the compliant
+implementation of an OASIS Standards Final Deliverable produced by the VIRTIO
+TC, Red Hat will operate, as specified by the VIRTIO TC, under the
+Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR
+Policy (as of the date of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, July 28, 2016 and amended Feb 14, 2018 and April 11, 2022
 
 Red Hat has been issued several United States patents that might be, or might become
@@ -270,25 +289,6 @@ and
 "REVERSE ORDER QUEUE UPDATES BY VIRTUAL DEVICES"
 are relevant to section "Virtqueues" of the Virtual I/O Device (VIRTIO)
 specification.
-
-Should one of these patent applications be issued as a patent, and be
-identified as essential to the compliant implementation of an OASIS Standards
-Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
-by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
-section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
-
-#### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019
-
-Red Hat has filed several United States patent applications that might become
-essential to an OASIS Standards Final Deliverable.
-
-The US Patent No. 10013199, "Translation Bypass by Host IOMMU for Systems with
-Virtual IOMMU" as well as the unpublished applications are relevant to section
-"Device Types" of the Virtual I/O Device (VIRTIO) specification.
-
-Red Hat is unable to provide more specific information regarding the
-unpublished applications, until such time as the applications are published or
-the patents are issued.
 
 Should one of these patent applications be issued as a patent, and be
 identified as essential to the compliant implementation of an OASIS Standards
