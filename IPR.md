@@ -8,6 +8,21 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, April 11, 2022
+
+Red Hat has been issued a United States patent that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 9658832 titled "MULTI-FACTOR ENTROPY SOURCING FOR RANDOM NUMBER GENERATORS"
+is relevant to section "Entropy Device" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should this patent be identified as essential to the compliant implementation
+of an OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will
+operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC
+Requirements described in section 10.3 of the OASIS IPR Policy (as of the date
+of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, Jan 29, 2019 and amended April 11, 2022
 
 Red Hat has been issued several United States patents that might be, or might become
