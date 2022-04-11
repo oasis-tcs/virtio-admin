@@ -8,6 +8,24 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, April 11, 2022
+
+Red Hat has been issued several United States patents that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 10223276 titled "PAGE CACHE MANAGEMENT DURING MIGRATION USING
+A LIST OF OUTSTANDING STORE REQUESTS TRANSMITTED TO A DESTINATION HOST MACHINE",
+the US Patent No. 9734016 titled "SECURE LIVE VIRTUAL MACHINE GUEST BASED SNAPSHOT RECOVERY"
+as well as
+the US Patent No. 9916205 titled "SECURE LIVE VIRTUAL MACHINE GUEST BASED SNAPSHOT RECOVERY"
+are relevant to sections "Block Device" and "SCSI Device" of the Virtual I/O
+Device (VIRTIO) specification.
+
+Should one these patents be identified as essential to the compliant implementation
+of an OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will
+operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC
+Requirements described in section 10.3 of the OASIS IPR Policy (as of the date
+of this disclosure).
 
 #### Statement regarding IPR, submitted by Red Hat, April 6, 2022
 
