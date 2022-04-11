@@ -8,6 +8,25 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, April 11, 2022
+Red Hat has been issued several United States patents that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 10083058 titled "BATCHED MEMORY PAGE HINTING",
+the US Patent No. 10664300 titled "RESETTING PERSISTENT BALLOON MEMORY FOR FRAGMENTATION REDUCTION",
+the US Patent No. 10768959 titled "VIRTUAL MACHINE MIGRATION USING MEMORY PAGE HINTS",
+the US Patent No. 10956216 titled "FREE PAGE HINTING WITH MULTIPLE PAGE SIZES"
+as well as
+the US Patent No. 9672062 titled "BATCHED MEMORY PAGE HINTING"
+are relevant to sections "Traditional Memory Balloon Device" and "Memory Device"
+of the Virtual I/O Device (VIRTIO) specification.
+
+Should one of these patents be identified as essential to the compliant
+implementation of an OASIS Standards Final Deliverable produced by the VIRTIO
+TC, Red Hat will operate, as specified by the VIRTIO TC, under the
+Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR
+Policy (as of the date of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, Feb 14, 2018 and amended April 11, 2022
 
 Red Hat has been issued several United States patents that might be, or might become
