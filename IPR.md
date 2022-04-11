@@ -8,6 +8,42 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, Feb 14, 2018 and amended April 11, 2022
+
+Red Hat has been issued several United States patents that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 10169088 titled "LOCKLESS FREE MEMORY BALLOONING FOR VIRTUAL MACHINES",
+the US Patent No. 10261820 titled "MEMORY DEDUPLICATION BASED ON GUEST PAGE HINTS",
+the US Patent No. 10394596 titled "TRACKING OF MEMORY PAGES BY A HYPERVISOR",
+the US Patent No. 10430327 titled "VIRTUAL MACHINE BASED HUGE PAGE BALLOON SUPPORT",
+the US Patent No. 10503659 titled "POST-COPY VM MIGRATION SPEEDUP USING FREE PAGE HINTING",
+the US Patent No. 10521149 titled "MEMORY POISONING SUPPORT FOR FREE PAGE HINTING",
+the US Patent No. 10521256 titled "VIRTUAL MACHINE MIGRATION ACCELERATION WITH PAGE STATE INDICATORS",
+the US Patent No. 10545673 titled "HYPERVISOR DEDUPLICATION PAGE COMPARISON SPEEDUP",
+the US Patent No. 10579439 titled "BATCHED STORAGE HINTING WITH FAST GUEST STORAGE ALLOCATION",
+the US Patent No. 11016668 titled "HYPERVISOR DEDUPLICATION PAGE COMPARISON SPEEDUP",
+the US Patent No. 11150929 titled "ENHANCED MEMORY MANAGEMENT FOR VIRTUAL MACHINES",
+the US Patent No. 11237879 titled "BATCHED STORAGE HINTING WITH FAST GUEST STORAGE ALLOCATION",
+the US Patent No. 9311164 titled "SYSTEM AND METHOD FOR BALLOONING WITH ASSIGNED DEVICES",
+the US Patent No. 9459900 titled "HYPERVISOR-BASED BALLOON PAGE INITIALIZATION",
+the US Patent No. 9552233 titled "VIRTUAL MACHINE MIGRATION USING FREE PAGE HINTING",
+the US Patent No. 9710372 titled "VIRTUAL MACHINE BASED HUGE PAGE BALLOON SUPPORT",
+the US Patent No. 9720722 titled "HYPERVISOR DRIVEN GRADUAL BALLOON INFLATION",
+the US Patent No. 9727368 titled "VIRTUAL MACHINE MIGRATION ACCELERATION WITH PAGE STATE INDICATORS",
+the US Patent No. 9798482 titled "EFFICIENT AND SECURE MEMORY ALLOCATION IN VIRTUALIZED COMPUTER SYSTEMS",
+the US Patent No. 9811260 titled "SYSTEM AND METHOD FOR BALLOONING WTH ASSIGNED DEVICES"
+as well as
+the US Patent No. 9934157 titled "POST-COPY VM MIGRATION SPEEDUP USING FREE PAGE HINTING"
+are relevant to section "Traditional Memory Balloon Device"
+of the Virtual I/O Device (VIRTIO) specification.
+
+Should one of these patents be identified as essential to the compliant
+implementation of an OASIS Standards Final Deliverable produced by the VIRTIO
+TC, Red Hat will operate, as specified by the VIRTIO TC, under the
+Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR
+Policy (as of the date of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, April 11, 2022
 Red Hat has been issued several United States patents that might be, or might become
 essential to an OASIS Standards Final Deliverable.
@@ -619,24 +655,6 @@ of an OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will
 operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC
 Requirements described in section 10.3 of the OASIS IPR Policy (as of the date
 of this disclosure).
-
-#### Statement regarding IPR, submitted by Red Hat, Feb 14, 2018
-
-Red Hat has filed several United States patent applications that might become
-essential to an OASIS Standards Final Deliverable.
-
-The unpublished applications are relevant to section "Traditional Memory
-Balloon Device" of the Virtual I/O Device (VIRTIO) specification.
-
-Red Hat is unable to provide more specific information regarding the
-unpublished applications, until such time as the applications are published or
-the patents are issued.
-
-Should one of these patent applications be issued as a patent, and be
-identified as essential to the compliant implementation of an OASIS Standards
-Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
-by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
-section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
 
 #### Statement regarding IPR, submitted by Red Hat, April 19, 2016 and amended Feb 14, 2018
 
