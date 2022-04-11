@@ -8,6 +8,33 @@ made to the TC, as defined in and required by the OASIS IPR Policy.
 
 ### IPR disclosures made by Red Hat
 
+#### Statement regarding IPR, submitted by Red Hat, July 28, 2016 and amended Feb 14, 2018 and April 11, 2022
+
+Red Hat has been issued several United States patents that might be, or might become
+essential to an OASIS Standards Final Deliverable.
+
+The US Patent No. 10157146 titled "LOCAL ACCESS DMA WITH SHARED MEMORY POOL",
+the US Patent No. 10223215 titled "DRIVER SWITCH FOR DEVICE ERROR RECOVERY FOR ASSIGNED DEVICES",
+the US Patent No. 10642625 titled "BRANCH REWRITING DEVICE FEATURE OPTIMIZATION",
+the US Patent No. 10956189 titled "VIRTUAL REMOTE DIRECT MEMORY ACCESS MANAGEMENT",
+the US Patent No. 11169857 titled "VIRTUAL CPU SCHEDULING ENHANCEMENT FOR VIRTUAL MACHINES",
+the US Patent No. 9001050 titled "TOUCH SCREEN EMULATION FOR A VIRTUAL MACHINE",
+the US Patent No. 9160659 titled "PARAVIRTUALIZED IP OVER INFINIBAND BRIDGING",
+the US Patent No. 9203750 titled "ETHERNET FRAME TRANSLATION TO INTERNET PROTOCOL OVER INFINIBAND",
+the US Patent No. 9442754 titled "DEFERRED ASYNCHRONOUS ACTIONS FOR VIRTUAL DEVICES",
+the US Patent No. 9483360 titled "GUEST-DRIVEN VIRTUAL MACHINE BACKUPS",
+the US Patent No. 9785519 titled "DRIVER SWITCH FOR DEVICE ERROR RECOVERY FOR ASSIGNED DEVICES"
+as well as
+the US Patent No 9836402 titled "Guest Ordering of Host File System Writes" as
+are relevant to section "Device Types" of the Virtual I/O Device (VIRTIO)
+specification.
+
+Should one of these patents be identified as essential to the compliant
+implementation of an OASIS Standards Final Deliverable produced by the VIRTIO
+TC, Red Hat will operate, as specified by the VIRTIO TC, under the
+Non-Assertion Mode TC Requirements described in section 10.3 of the OASIS IPR
+Policy (as of the date of this disclosure).
+
 #### Statement regarding IPR, submitted by Red Hat, April 11, 2022
 
 Red Hat has been issued several United States patents that might be, or might become
@@ -420,28 +447,6 @@ identified as essential to the compliant implementation of an OASIS Standards
 Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
 by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
 section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
-
-#### Statement regarding IPR, submitted by Red Hat, July 28, 2016 and amended Feb 14, 2018
-
-Red Hat has been issued a United States patent that might become
-essential to an OASIS Standards Final Deliverable, and
-Red Hat has filed a United States patent application that might become
-essential to an OASIS Standards Final Deliverable.
-
-The US Patent No 9836402 titled "Guest Ordering of Host File System Writes" as
-well as the unpublished application are relevant to section "Device Types" of
-the Virtual I/O Device (VIRTIO) specification.
-
-Red Hat is unable to provide more specific information regarding the
-unpublished application, until such time as the application is published
-or the patent is issued.
-
-Should this patent application be issued as a patent, and should one of these
-applications be identified as essential to the compliant implementation of an
-OASIS Standards Final Deliverable produced by the VIRTIO TC, Red Hat will
-operate, as specified by the VIRTIO TC, under the Non-Assertion Mode TC
-Requirements described in section 10.3 of the OASIS IPR Policy (as of the date
-of this disclosure).
 
 #### Statement regarding IPR, submitted by Red Hat, April 19, 2016 and amended Feb 14, 2018
 
