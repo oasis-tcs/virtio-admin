@@ -602,13 +602,13 @@ Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
 by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
 section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
 
-#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022 and amended April 13, 2022
 
 Red Hat has filed several United States patent applications that might become
 essential to an OASIS Standards Final Deliverable.
 
-
-US Publication No. 20210342279 titled "NON-INTERRUPTING PORTABLE PAGE REQUEST INTERFACE"
+US Publication No. 20210342279 as well as an unpublished patent application
+titled "NON-INTERRUPTING PORTABLE PAGE REQUEST INTERFACE"
 and an unpublished patent application titled
 "IMPROVING MEMORY ACCESS HANDLING FOR PERIPHERAL COMPONENT INTERCONNECT DEVICES"
 are relevant to section "Virtio Over PCI Bus" of the Virtual I/O
