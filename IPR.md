@@ -534,7 +534,7 @@ Final Deliverable produced by the VIRTIO TC, Red Hat will operate, as specified
 by the VIRTIO TC, under the Non-Assertion Mode TC Requirements described in
 section 10.3 of the OASIS IPR Policy (as of the date of this disclosure).
 
-#### Statement regarding IPR, submitted by Red Hat, April 6, 2022
+#### Statement regarding IPR, submitted by Red Hat, April 6, 2022 and updated May 2, 2022
 
 Red Hat has filed several United States patent applications that might become
 essential to an OASIS Standards Final Deliverable.
@@ -544,9 +544,8 @@ US Publication No. 20200278878 titled "RESETTING PERSISTENT BALLOON MEMORY FOR F
 US Publication No. 20210182191 titled "FREE MEMORY PAGE HINTING BY VIRTUAL MACHINES",
 US Publication No. 20210303356 titled "FLEXIBLE REVERSE BALLOONING FOR NESTED VIRTUAL MACHINES",
 US Publication No. 20210342260 titled "INDIRECT INTERFACE FOR VIRTUAL MACHINE FREE PAGE HINTING"
-as well as unpublished patent applications titled
-"MEMORY BALLOONING RELATED MEMORY ALLOCATION TECHNIQUES FOR VIRTUAL MACHINES"
-and
+US Publication No. 20220129386 titled "MEMORY BALLOONING RELATED MEMORY ALLOCATION TECHNIQUES FOR VIRTUAL MACHINES"
+as well as an unpublished patent application titled
 "NON FRAGMENTING MEMORY BALLOONING"
 are relevant to section "Traditional Memory Balloon Device" of the Virtual I/O
 Device (VIRTIO) specification.
