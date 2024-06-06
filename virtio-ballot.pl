@@ -1,16 +1,17 @@
-#!/usr/bin/perl
-# ./virtio-ballot.pl "$(cat /tmp/title)" "$(cat /tmp/question)" "$(cat /tmp/desc)"
 use strict;
 use warnings;
-use LWP 5.64;
-use URI::Escape;
-use HTML::Entities;
+use Selenium::Remote::Driver;
+use Selenium::Remote::WDKeys;
+use Time::HiRes qw(sleep);
+use Selenium::ActionChains;
 
+#argument parsing
 if ($#ARGV != 2) {
 	print STDERR "usage: virtio-ballot.pl <name> <question> <description>\n";
 	exit 3;
 }
 
+#load ballot info
 my $NAME=$ARGV[0];
 $NAME =~ s/\n/ /g;
 $NAME =~ s/^\s*//;
@@ -28,6 +29,13 @@ $DESCRIPTION =~ s/>/&gt;/sg;
 $DESCRIPTION =~ s/"/&quot;/sg;
 $DESCRIPTION =~ s/'/&apos;/sg;
 
+$DESCRIPTION =~ s/\n/<br\/>/sg;
+#750 maximum character limit
+#TODO: prettify
+die if length($DESCRIPTION) > 750;
+
+
+#load username and password
 {
 	package RC;
 	for my $file ("$ENV{HOME}/.virtio-tc-rc")
@@ -54,465 +62,110 @@ EOF
 my $USERNAME = $RC::USERNAME;
 my $PASSWORD = $RC::PASSWORD;
 
-sub printform {
-	my $name = shift;
-	my %form = @_;
-	foreach my $field (sort(keys(%form))) {
-		if (ref($form{$field}) eq 'ARRAY') {
-			foreach my $v (@{$form{$field}}) {
-				print "form $name key $field = $v\n";
-			}
-		} elsif (defined($form{$field})) {
-			print "form $name key $field = $form{$field}\n";
-		} else {
-			print "form $name key $field = <UNDEF>\n";
-		}
+###########################################################################
+#helper functions
+###########################################################################
+
+# Custom wait function for selenium to wait for an element to appear
+sub wait_for_element {
+    my ($driver, $locator, $timeout) = @_;
+    my $elapsed_time = 0;
+    while ($elapsed_time < $timeout) {
+        my $element = eval { $driver->find_element($locator, 'xpath') };
+        return $element if $element;
+        sleep 1;
+        $elapsed_time += 1;
+    }
+    die "Element with locator '$locator' not found after $timeout seconds";
+}
+#scroll down until element is visible
+sub wait_and_click {
+    my ($driver, $element) = @_;
+    my $elapsed_time = 0;
+    while (1) {
+        my $clicked = eval { $element->click(); 1; };
+        return $clicked if $clicked;
+	sleep(1);
+    }
+    die "Element with locator '$element' not clicked";
+}
+#scroll down until element is visible
+sub scroll_and_click {
+    my ($driver, $element) = @_;
+    my $elapsed_time = 0;
+    while (1) {
+        my $clicked = eval { $element->click(); 1; };
+        return $clicked if $clicked;
+	$driver->execute_script("window.scrollBy(0,10)");
+    }
+    die "Element with locator '$element' not clicked";
+}
+sub wait_for_visible {
+    my ($element, $timeout) = @_;
+    my $elapsed_time = 0;
+    while ($elapsed_time < $timeout) {
+        return $element if !$element->is_hidden();
+        sleep 1;
+        $elapsed_time += 1;
+    }
+    die "Element '$element' not visible after $timeout seconds";
+}
+#set checkbox
+sub set_checkbox {
+	my ($checkbox, $value) = @_;
+	my $is_checked = $checkbox->get_attribute("checked");
+	if (!$is_checked) {
+		# sending space to checkbox flips it
+		$checkbox->send_keys(" ");
 	}
-};
+	# Verify the checkbox is checked by re-checking the 'checked' attribute
+	$is_checked = $checkbox->get_attribute('checked');
+	print "CHECKED ", $is_checked, "\n";
+	#die unless $is_checked;
+}
 
-sub printforms {
-	my $CONTENT = shift;
-	my %form = ();
-	my %fields = ();
-	my $form_name;
-	my $form_action;
-
-	my @lines = split("<", $CONTENT);
-	for my $l (@lines) {
-		if ($l =~ m/^form[^>]*method="post"/i) {
-			if ($l =~ m/^form[^>]*id="([^"]*)"/i) {
-				$form_name = $1;
-			} else {
-				$form_name = undef;
-			}
-			if ($l =~ m/^form[^>]*action="([^"]*)"/i) {
-				$form_action = $1;
-			} else {
-				$form_action = undef;
-			}
-			next unless defined($form_name) and defined($form_action);
-			print "Form $form_name Action $form_action\n";
-		} elsif ($l =~ m#^/form>#) {
-			print "End of Form\n";
-			$form_name = undef;
-		}
-
-		if ($l =~ m/^(input|select)/i) {
-			my $name;
-			my $value = "";
-			if ($l =~ m/type="button"/i) {
-				next;
-			}
-			if ($l =~ m/name="([^"]*)"/i) {
-				$name = $1;
-			}
-			if ($l =~ m/value="([^"]*)"/i) {
-				$value = $1;
-			}
-			next unless defined $name;
-			print "form{$name} = $value\n";
-		}
-	}
-
-};
-#sub printforms {
-#	my $content = shift;
-#	my %form = ();
-#	my %fields = ();
-#	my $form_name;
-#	my $form_action;
-#
-#	my @lines = split("<", $content);
-#	for my $l (@lines) {
-#		if ($l =~ m/^form[^>]*method="post"/i) {
-#			if ($l =~ m/^form[^>]*id="([^"]*)"/i) {
-#				$form_name = $1;
-#			} else {
-#				$form_name = undef;
-#			}
-#			if ($l =~ m/^form[^>]*action="([^"]*)"/i) {
-#				$form_action = $1;
-#			} else {
-#				$form_action = undef;
-#			}
-#			next unless defined($form_name) and defined($form_action);
-#			print "form $form_name action $form_action\n";
-#		} elsif ($l =~ m#^/form>#) {
-#			print "end of form\n";
-#			$form_name = undef;
-#		}
-#
-#		if ($l =~ m/^(input|select)/i) {
-#			my $name;
-#			my $value = "";
-#			if ($l =~ m/type="button"/i) {
-#				next;
-#			}
-#			if ($l =~ m/name="([^"]*)"/i) {
-#				$name = $1;
-#			}
-#			if ($l =~ m/value="([^"]*)"/i) {
-#				$value = $1;
-#			}
-#			next unless defined $name;
-#			$value = decode_entities($value);
-#			print "form{$name} = $value\n";
-#		}
-#		if ($l =~ m/^(textarea)/i) {
-#			my $name;
-#			my $value = "";
-#			if ($l =~ m/name="([^"]*)"/i) {
-#				$name = $1;
-#			}
-#			if ($l =~ m/([^>\s][^>]*[^>\s])\s*$/i) {
-#				$value = $1;
-#			}
-#			next unless defined $name;
-#			$value = decode_entities($value);
-#			print "form{$name} = $value\n";
-#		}
-#		if ($l =~ m/^(a)/i) {
-#			my $id;
-#			my $href;
-#			if ($l =~ m/^a[^>]*id="([^"]*)"/i) {
-#				$id = $1;
-#			} else {
-#				$id = undef;
-#			}
-#			if ($l =~ m/^a[^>]*href="([^"]*)"/i) {
-#				$href = $1;
-#			} else {
-#				$href = undef;
-#			}
-#			my $text="";
-#			if ($l =~ m/([^>\s][^>]*[^>\s])\s*$/i) {
-#				$text = $1;
-#			}
-#			next unless defined $id and defined $href;
-#			print "url{$id} [$text] = $href\n";
-#		}
+#set checkbox
+#sub set_checkbox {
+#	my ($checkbox, $value) = @_;
+#	my $is_checked = $checkbox->get_attribute("checked");
+#	print $is_checked, " ", length($is_checked), "\n";
+#	if ((!$is_checked) ne (!$value)) {
+#		# sending space to checkbox flips it
+#		$checkbox->send_keys(" ");
+#		print "flip\n";
 #	}
-#
+#	# Verify the checkbox is checked by re-checking the 'checked' attribute
+#	$is_checked = $checkbox->get_attribute('checked');
+#	print $is_checked, " ", length($is_checked), "\n";
+#	die unless (!$is_checked) eq (!$value);
 #}
 
-sub printlinks {
-	my $CONTENT = shift;
-	my %form = ();
-	my %fields = ();
-	my $href;
-	my $text;
-	my $id;
 
-	my @lines = split("<", $CONTENT);
-	for my $l (@lines) {
-		next unless ($l =~ m/^a/);
-		$href = undef;
-		$text = "";
-		if ($l =~ m/href=\'([^']+)\'/i) {
-			$href = $1;
-		} elsif ($l =~ m#href=\"([^"]+)\"#i) {
-			$href = $1;
-		}
-		if ($l =~ m/^a[^>]*id="([^"]*)"/i) {
-			$id = $1;
-		} else {
-			$id = undef;
-		}
-		if ($l =~ m/([^>\s][^>]*[^>\s])\s*$/i) {
-			$text = $1;
-		}
-		#used within javascript as template
-		next if ($href =~ m/\{0\}/);
-
-		next unless defined($href) and defined($id);
-
-		print "text $text href $href id $id\n";
-
-	}
-
+sub set_date_time {
+	my ($action_chains, $driver, $name, $day, $h, $m) = @_;
+	my $index = $h * 4 + ($m + 14) / 15 + 1; #1st entry is "Time" with dummy value 0
+	my $date = $driver->find_element('//input[@id="' . $name . '"]', 'xpath');
+	$date->clear();
+	$date->send_keys($day);
+	$date->send_keys(KEYS->{'escape'});
+	scroll_and_click($driver, $date);
+	my $date_t = $driver->find_element('//select[@id="' . $name . '_t"]', 'xpath');
+	$date_t->execute_script('arguments[0].selectedIndex=' . $index . ';');
+	#TODO: we can actually validate time value here, not bothering now
+	die unless $date_t->get_value() =~ m/(..):..:../;
 }
 
-sub getlink {
-	my $CONTENT = shift;
-	my $pattern = shift;
-	my %form = ();
-	my %fields = ();
-	my $href;
-	my $id;
 
-	my @lines = split("<", $CONTENT);
-	for my $l (@lines) {
-		next unless ($l =~ m/^a/);
-		$href = undef;
-		if ($l =~ m/^a[^>]*id="([^"]*)"/i) {
-			$id = $1;
-		} else {
-			$id = undef;
-		}
-		if ($l =~ m/href=\'([^']+)\'/i) {
-			$href = $1;
-		} elsif ($l =~ m#href=\"([^"]+)\"#i) {
-			$href = $1;
-		}
-
-		next unless defined($href) and defined($id);
-		next if ($href =~ m/\{0\}/);
-
-		if ($id eq $pattern) {
-			return $href
-		}
-	}
-}
-
-sub parseform {
-	my $CONTENT = shift;
-	my $FNAME = shift;
-	my $ALLOPTIONS = shift;
-	my @REQFIELDS = @_;
-	my %form = ();
-	my %fields = ();
-	my $form_name;
-	my $form_action;
-	my $select_name;
-	my $multiple;
-
-	if (not defined($ALLOPTIONS)) {
-		$ALLOPTIONS = "";
-	}
-
-	my @lines = split("<", $CONTENT);
-	for my $l (@lines) {
-		my $trace = 0;
-		if ($l =~ m/^form[^>]*method=['"]post['"]/i) {
-			if ($l =~ m/^form[^>]*id=['"]([^"']*)['"]/i) {
-				$form_name = $1;
-			} elsif ($l =~ m/^form[^>]*name=['"]([^"']*)['"]/i) {
-				$form_name = $1;
-			} else {
-				$form_name = undef;
-			}
-			if ($l =~ m/^form[^>]*action=['"]([^"']*)['"]/i) {
-				$form_action = $1;
-			} else {
-				$form_action = undef;
-			}
-#			next unless defined($form_name) and defined($form_action);
-		} elsif ($l =~ m#^/form>#i) {
-			$form_name = undef;
-		}
-		next if (not(defined($form_name)) or $form_name ne $FNAME);
-
-		if ($l =~ m/^(input|select)/i) {
-			my $name;
-			my $value = "";
-			if ($l =~ m/type=['"]button['"]/i) {
-				next;
-			}
-			if ($l =~ m/name=["']([^"']*)['"]/i) {
-				$name = $1;
-			}
-			if ($l =~ m/value=['"]([^"']*)['"]/i) {
-				$value = $1;
-			} elsif ($l =~ m/value=([^"'\s]*)/i) {
-				$value = $1;
-			}
-			print STDERR "skip input: $l\n" unless defined $name;
-			next unless defined $name;
-			if ($l =~ m/type=['"](checkbox|radio)['"]/i) {
-				if (($ALLOPTIONS eq "") and not($l =~ m/\schecked\b/i)) {
-					next;
-				}
-				if (not(defined($value))) {
-					$value = "on";
-				}
-			}
-
-			$value = decode_entities($value);
-			if (defined($form{$name})) {
-				if (not(ref($form{$name}) eq 'ARRAY')) {
-					my $tmp = $form{$name};
-					$form{$name} = [];
-					push @{$form{$name}}, $tmp;
-				}
-				push @{$form{$name}}, $value;
-			} else {
-				$form{$name} = $value;
-			}
-			if ($l =~ m/^(select)/i) {
-				$select_name = $name;
-				if (($l =~ m/multiple=['"]multiple['"]/) or not ($ALLOPTIONS eq "")) {
-					$multiple = 1;
-					$form{$select_name} = [];
-				} else {
-					$multiple = undef;
-				}
-			}
-		}
-		if ($l =~ m#^/select#i) {
-			$select_name = undef;
-		}
-		if ($l =~ m/^option/i) {
-			my $value = undef;
-			print STDERR "skip option $l\n" unless defined $select_name;
-			next unless defined $select_name;
-			if (($ALLOPTIONS eq "") and (not $l =~ m/\sselected\b/i)) {
-				next;
-			}
-			if ($l =~ m/value=['"]([^"']*)['"]/i) {
-				$value = $1;
-			} elsif ($l =~ m/value=([^"'\s]*)/i) {
-				$value = $1;
-			}
-			print STDERR "skip v: $l\n" unless defined $value;
-			next unless defined $value;
-			if ($ALLOPTIONS eq "text") {
-				$value = $l;
-				if (not $value =~ s/^.*>\s*//go) {
-					$value = "";
-				}
-			}
-			$value = decode_entities($value);
-			if (defined($multiple)) {
-				push @{$form{$select_name}}, $value;
-			} else {
-				if (defined($form{$select_name})) {
-					if (not(ref($form{$select_name}) eq 'ARRAY')) {
-						my $tmp = $form{$select_name};
-						$form{$select_name} = [];
-						push @{$form{$select_name}}, $tmp;
-					}
-					push @{$form{$select_name}}, $value;
-				} else {
-					$form{$select_name} = $value;
-				}
-			}
-		}
-		if ($l =~ m/^(textarea)/i or $l =~ m/data-fieldtype=['"]textarea['"]/ ) {
-			my $name;
-			my $value = "";
-			if ($l =~ m/id=['"]([^"]*)['"]/i) {
-				$name = $1;
-			}
-			if ($l =~ m/name=["']([^"']*)['"]/i) {
-				$name = $1;
-			}
-			if ($l =~ m/([^>\s][^>]*[^>\s])\s*$/i) {
-				$value = $1;
-			}
-			print STDERR "skip: $l\n" unless defined $name;
-			next unless defined $name;
-			$value = decode_entities($value);
-			if (defined($form{$name})) {
-				if (not(ref($form{$name}) eq 'ARRAY')) {
-					my $tmp = $form{$name};
-					$form{$name} = [];
-					push @{$form{$name}}, $tmp;
-				}
-				push @{$form{$name}}, $value;
-			} else {
-				$form{$name} = $value;
-			}
-		}
-	}
-
-	foreach my $reqfield (@REQFIELDS) {
-		die "required field $reqfield missing" unless defined($form{$reqfield});
-	}
-	return ($form_action, %form);
-};
-
-sub findtext {
-	my $s = shift;
-	my @text = @_;
-
-	my $i;
-	my $option;
-	for ($i = 0; $i <= $#text; $i++) {
-		if ($text[$i] =~ m/$s/) {
-			if (defined($option)) {
-				print STDERR "Ambigious field value. " .
-					"Matches: [$text[$option]] " .
-					"and [$text[$i]] \n";
-				exit 3;
-			}
-			$option = $i;
-		}
-	}
-
-	if (not defined($option)) {
-		print STDERR "Invalid field value $s. Valid values:\n";
-		for ($i = 0; $i <= $#text; $i++) {
-			print STDERR "$text[$i]\n";
-			
-		}
-		exit (2);
-	}
-
-	return $option;
-}
-
-my $browser = LWP::UserAgent->new;
-
-# enable cookies
-$browser->cookie_jar({});
-
-my $url;
-my $response;
-$url = 'https://www.oasis-open.org//login?' .
-       'back=https%3a%2f%2fwww.oasis-open.org%2fapps%2forg%2fworkgroup%2fvirtio%2fcreate_ballot.php';
-print "LOGIN as $USERNAME at $url\n";
-
-$response = $browser->get($url);
-die 'Error accessing',
-    "\n ", $response->status_line, "\n at $url\n Aborting"
-    unless $response->is_success;
-
-print "LOGIN successful\n";
-
-my $LOGIN_USERNAME = '__ac_name';
-my $LOGIN_PASSWORD = '__ac_password';
-
-my ($login_action, %login_form) = parseform($response->content, "login_loginform", "",
-					    $LOGIN_USERNAME, $LOGIN_PASSWORD);
-
-$login_form{$LOGIN_USERNAME} = $USERNAME;
-$login_form{$LOGIN_PASSWORD} = $PASSWORD;
-
-$url = URI->new_abs($login_action, $url);
-$response = $browser->post($url, \%login_form,);
-#Server responds with a 302 Found redirect
-die 'Error accessing',
-    "\n ", $response->status_line, "\n at $url\n Aborting"
-    unless $response->code() eq 302;
-
-$url = URI->new_abs($response->header('Location'), $url);
-
-$response = $browser->get($url);
-die 'Error accessing',
-    "\n ", $response->status_line, "\n at $url\n Aborting"
-    unless $response->is_success;
-
-my ($edit_action_dummy, %edit_ballot_options) = parseform($response->content, "add_edit_ballot_form", "1");
-my ($edit_action, %edit_ballot) = parseform($response->content, "add_edit_ballot_form");
-
-#sanity checks
-#findtext("", @{$edit_ballot_options{$comment_text}})
-#printform("EDIT BALLOT OPTIONS", %edit_ballot_options);
-#printform("EDIT BALLOT", %edit_ballot);
-
-#print $response->content;
+# get current eastern time.
 sub gettime {
 	my $tnow=`TZ="America/Detroit" date +%H:%M`;
 	$tnow =~ m/([0-9][0-9]):([0-9][0-9])/;
 	my $hnow = $1;
 	my $mnow = $2;
-	my $mround = sprintf("%02.2d", $mnow - $mnow % 15);
-	my $hround = $hnow;
-	my $ampm = "am";
-	my $noon = "am";
-	return "$hnow:$mround:00";
+	return "$hnow:$mnow:00";
 }
 
+# get current date
 sub getdate {
 	my $mtime=shift;
 	my $offset=shift;
@@ -523,125 +176,199 @@ sub getdate {
 	}
 };
 
-my $mtime = gettime();
-my $start = getdate($mtime);
-my $remind1 = getdate($mtime, "3 days");
-my $remind2 = getdate($mtime, "5 days");
-my $remind3 = getdate($mtime, "6 days");
-my $end = getdate($mtime, "7 days");
+###########################################################################
+#create ballot
+###########################################################################
 
-$edit_ballot{"admin_only_results"} = "0";
-$edit_ballot{"attendance_x"} = "3";
-$edit_ballot{"attendance_y"} = "5";
-$edit_ballot{"auto_update"} = "true";
-$edit_ballot{"ballot_email_close"} = "on";
-$edit_ballot{"ballot_email_nonvoter_close"} = "on";
-$edit_ballot{"ballot_email_nonvoter_open"} = "on";
-$edit_ballot{"ballot_email_open"} = "on";
-$edit_ballot{"ballot_email_present"} = "true";
-$edit_ballot{"close_date"} = $end;
-$edit_ballot{"close_date_t"} = $mtime;
-$edit_ballot{"comment_req_other"} = "Optional";
-$edit_ballot{"eligible_voters"} = "voters";
-$edit_ballot{"enable_revotes"} = "true";
-$edit_ballot{"enable_other_option"} = undef;
-$edit_ballot{"enforce_attendance_flag"} = undef;
-$edit_ballot{"include_abstain"} = "1";
-$edit_ballot{"members_view_results"} = "true";
-$edit_ballot{"official_ballot"} = "true";
-$edit_ballot{"open_date"} = $start;
-$edit_ballot{"open_date_t"} = $mtime;
-$edit_ballot{"option_count"} = "1";
-$edit_ballot{"option_style"} = "upto";
-$edit_ballot{"options_comment_req[]"} = undef;
-$edit_ballot{"options_comment_req[yes]"} = "Optional";
-$edit_ballot{"options_comment_req[no]"} = "Optional";
-$edit_ballot{"options_comment_req[abstain]"} = "Optional";
-$edit_ballot{"remind_date"} = $remind1;
-$edit_ballot{"remind_date_t"} = $mtime;
-$edit_ballot{"remind_date_2"} = $remind2;
-$edit_ballot{"remind_date_2_t"} = $mtime;
-$edit_ballot{"remind_date_3"} = $remind3;
-$edit_ballot{"remind_date_3_t"} = $mtime;
-$edit_ballot{"results_open"} = "after_opens";
-$edit_ballot{"send_reminder"} = "true";
-$edit_ballot{"show_result_details"} = "true";
-$edit_ballot{"time_zone_id"} = "1";
-$edit_ballot{"type"} = "yes_no";
-$edit_ballot{"update_list"} = undef;
-$edit_ballot{"add_more_wg_references"} = undef;
-#form EDIT BALLOT OPTIONS key name = 
-#form EDIT BALLOT OPTIONS key question = 
-#form EDIT BALLOT OPTIONS key text = 
-$edit_ballot{"name"} = $NAME;
-$edit_ballot{"question"} = $QUESTION;
-$edit_ballot{"text"} = $DESCRIPTION;
-$edit_ballot{"show_review_page"} = "Continue &gt;&gt;";
+# Initialize the driver
+my $driver = Selenium::Remote::Driver->new(
+    remote_server_addr => 'localhost',
+    port               => 4444,
+    browser_name       => 'firefox'
+);
 
-#print "ACTION $edit_action\n";
-#$url = URI->new_abs($edit_action, $url);
-#arrays can't be used with mutlipart
-foreach my $field (sort(keys(%edit_ballot))) {
-	if (ref($edit_ballot{$field}) eq 'ARRAY') {
-		my @tmp = @{$edit_ballot{$field}};
-		$edit_ballot{$field} = $tmp[0];
-	}
-}
+my $action_chains = Selenium::ActionChains->new(driver => $driver);
 
-#printform("create_ballot", %edit_ballot);
+my $url = 'https://groups.oasis-open.org/higherlogic/ws/groups/b3f5efa5-0e12-4320-873b-018dc7d3f25c/ballots/create_ballot';
+print "LOGIN as $USERNAME at $url\n";
 
-$url = "https://www.oasis-open.org/apps/org/workgroup/virtio/create_ballot.php";
+# Step 1: Navigate to the initial URL
+$driver->get($url);
+
+# Step 2: Explicitly wait for the login button to appear
+my $login_button = wait_for_element($driver, '//button[contains(@class, "loginButton")]', 130);
+
+# Step 3: Locate the username and password fields using placeholder text
+my $username_field = $driver->find_element('//input[@placeholder="Username or Email"]', 'xpath');
+my $password_field = $driver->find_element('//input[@placeholder="Password"]', 'xpath');
+
+# Step 4: Fill in the username and password
+$username_field->send_keys($USERNAME);
+$password_field->send_keys($PASSWORD);
+
+# Step 5: Click the login button
+$login_button->click;
+
+# Step 6: wait until continue button
+my $continue_button = wait_for_element($driver, '//input[@value="Continue"]', 130);
+
+print "LOGIN successful\n";
+
+my $timenow = gettime();
+my $start = getdate($timenow);
+my $remind1 = getdate($timenow, "3 days");
+my $remind2 = getdate($timenow, "5 days");
+my $remind3 = getdate($timenow, "6 days");
+my $end = getdate($timenow, "7 days");
+$timenow =~ m/(..):(..):00/;
+my $h = $1;
+my $m = $2;
+
+my $title_field = $driver->find_element('//input[@id="name"]', 'xpath');
+# not sure this is needed oh well
+wait_for_visible($title_field, 30);
+
+my $cookie_button = wait_for_element($driver, '//button[contains(@class, "btn btn-success")]', 130);
+#Selenium bug: clicking buttons does not trigger onclick event
+#invoke manually
+$driver->execute_script("HigherLogic.Microsites.Ui.dropCookieNotification(arguments[0]);", $cookie_button);
+
+$title_field->execute_script("arguments[0].value = '" . $NAME . "';");
+
+my $question_field = $driver->find_element('//input[@id="question"]', 'xpath');
+
+$question_field->execute_script("arguments[0].value = '" . $QUESTION . "';");
+
+my $description_field = $driver->find_element('//textarea[@id="description"]', 'xpath'); #name is also description
+
+$description_field->execute_script("arguments[0].value = '" . $DESCRIPTION . "';");
+
+my $abstain_field = $driver->find_element('//input[@name="include_abstain"]', 'xpath');
+scroll_and_click($driver, $abstain_field);
+die unless $abstain_field->is_selected();
+
+set_date_time($action_chains, $driver, "open_date", $start, $h, $m);
+set_date_time($action_chains, $driver, "close_date", $end, $h, $m);
+
+#voter management.
+#Auto-update: second option is true
+my $auto_update = $driver->find_element('//select[@name="auto_update"]', 'xpath');
+$auto_update->execute_script('arguments[0].selectedIndex=0;');
+print "auto-update value: ", $auto_update->get_value(), "\n";
+die unless $auto_update->get_value() eq "true";
+
+
+#official ballot - what else?
+my $official_ballot = $driver->find_element('//input[@name="official_ballot"]', 'xpath');
+scroll_and_click($driver, $official_ballot);
+die unless $official_ballot->is_selected();
+
+#enable revotes - why not?
+my $enable_revotes = $driver->find_element('//select[@name="enable_revotes"]', 'xpath');
+$enable_revotes->execute_script('arguments[0].selectedIndex=0;');
+die unless $enable_revotes->get_value() eq "true";
+
+#email non-voters
+my $ballot_email_nonvoter = $driver->find_element('//select[@name="ballot_email_nonvoter[]"]', 'xpath');
+$ballot_email_nonvoter->execute_script('arguments[0].options[0].selected=true;');
+$ballot_email_nonvoter->execute_script('arguments[0].options[1].selected=true;');
+#not sure how to validate, whatever
+
+#reminders
+my $send_reminder_field = $driver->find_element('//input[@name="send_reminder"]', 'xpath');
+scroll_and_click($driver, $send_reminder_field);
+die unless $send_reminder_field->is_selected();
+
+
+set_date_time($action_chains, $driver, "remind_date", $remind1, $h, $m);
+
+set_date_time($action_chains, $driver, "remind_date_2", $remind2, $h, $m);
+
+set_date_time($action_chains, $driver, "remind_date_3", $remind3, $h, $m);
+
+#print "ENTER to continue:";
+#{ my $line = <STDIN>; }
+
 print "CREATE BALLOT AT $url\n";
-$response = $browser->post($url, \%edit_ballot, 'Content_Type' => 'form-data', );
-die 'Error accessing',
-    "\n ", $response->status_line, "\n at $url\n Aborting"
-    unless $response->code() eq 302 or $response->is_success;
 
-#printforms($response->content);
+scroll_and_click($driver, $continue_button);
+#print "ENTER to accept:";
+#{ my $line = <STDIN>; }
 
-my ($review_action, %review_ballot) = parseform($response->content, "ballot_review_form");
-my @review_keys = keys %review_ballot;
-if ($#review_keys < 0) {
-	my @resp = split("\n", $response->content);
-	my @errors = grep(/\'error\'/, @resp);
-	my $error = join('\n', @errors);
-	print "RETURNED errors: $error\n";
-	die 'Unable to find review form - Aborting';
-}
+my $accept_button = wait_for_element($driver, '//input[@value="Accept"]', 130);
 
-#print $response->content;
-
-foreach my $field (sort(keys(%review_ballot))) {
-	if (ref($review_ballot{$field}) eq 'ARRAY') {
-		my @tmp = @{$review_ballot{$field}};
-		$review_ballot{$field} = $tmp[0];
-	}
-}
-
-#printform("review", %review_ballot);
-
-$review_ballot{"create_and_create_another"} = undef;
-$review_ballot{"show_create_page"} = undef;
-$review_ballot{"show_done_page"} = "Accept &gt;&gt;";
 print "REVIEW BALLOT AT $url\n";
-$response = $browser->post($url, \%review_ballot, 'Content_Type' => 'form-data', );
-if ($response->code() ne 302) {
-	my @resp = split("\n", $response->content);
-	my @errors = grep(/\'error\'/, @resp);
-	my $error = join('\n', @errors);
-	print "RETURNED errors: $error\n";
-}
 
-die 'Error accessing',
-    "\n ", $response->status_line, "\n at $url\n Aborting"
-    unless $response->code() eq 302;
+scroll_and_click($driver, $accept_button);
 
-#print $response->content, "\n";
-$url = URI->new_abs($response->header('Location'), $url);
-print "BALLOT VOTING AT URL: $url\n";
-exit (11) unless $url =~ m/\?id=([0-9]+)$/;
+my $actions_link = wait_for_element($driver, '//a[contains(.,"Actions")]', 130);
+
+my $ballot_url = $driver->get_current_url();
+
+print "BALLOT VOTING AT URL: $ballot_url\n";
+exit (11) unless $ballot_url =~ m/\?id=([0-9]+)$/;
 my $id = $1;
-my $publicurl = "https://www.oasis-open.org/committees/ballot.php?id=" . $id;
+my $publicurl = "https://groups.oasis-open.org/higherlogic/ws/public/ballot?id=" . $id;
 print "BALLOT CREATED AT URL: $publicurl\n";
 
-exit 0;
+#print "ENTER to exit:";
+#{ my $line = <STDIN>; }
+
+#
+#$edit_ballot{"admin_only_results"} = "0";
+#$edit_ballot{"attendance_x"} = "3";
+#$edit_ballot{"attendance_y"} = "5";
+#$edit_ballot{"auto_update"} = "true";
+#$edit_ballot{"ballot_email_close"} = "on";
+#$edit_ballot{"ballot_email_nonvoter_close"} = "on";
+#$edit_ballot{"ballot_email_nonvoter_open"} = "on";
+#$edit_ballot{"ballot_email_open"} = "on";
+#$edit_ballot{"ballot_email_present"} = "true";
+#$edit_ballot{"close_date"} = $end;
+#$edit_ballot{"close_date_t"} = $mtime;
+#$edit_ballot{"comment_req_other"} = "Optional";
+#$edit_ballot{"eligible_voters"} = "voters";
+#$edit_ballot{"enable_revotes"} = "true";
+#$edit_ballot{"enable_other_option"} = undef;
+#$edit_ballot{"enforce_attendance_flag"} = undef;
+#$edit_ballot{"include_abstain"} = "1";
+#$edit_ballot{"members_view_results"} = "true";
+#$edit_ballot{"official_ballot"} = "true";
+#$edit_ballot{"open_date"} = $start;
+#$edit_ballot{"open_date_t"} = $mtime;
+#$edit_ballot{"option_count"} = "1";
+#$edit_ballot{"option_style"} = "upto";
+#$edit_ballot{"options_comment_req[]"} = undef;
+#$edit_ballot{"options_comment_req[yes]"} = "Optional";
+#$edit_ballot{"options_comment_req[no]"} = "Optional";
+#$edit_ballot{"options_comment_req[abstain]"} = "Optional";
+#$edit_ballot{"remind_date"} = $remind1;
+#$edit_ballot{"remind_date_t"} = $mtime;
+#$edit_ballot{"remind_date_2"} = $remind2;
+#$edit_ballot{"remind_date_2_t"} = $mtime;
+#$edit_ballot{"remind_date_3"} = $remind3;
+#$edit_ballot{"remind_date_3_t"} = $mtime;
+#$edit_ballot{"results_open"} = "after_opens";
+#$edit_ballot{"send_reminder"} = "true";
+#$edit_ballot{"show_result_details"} = "true";
+#$edit_ballot{"time_zone_id"} = "1";
+#$edit_ballot{"type"} = "yes_no";
+#$edit_ballot{"update_list"} = undef;
+#$edit_ballot{"add_more_wg_references"} = undef;
+##form EDIT BALLOT OPTIONS key name = 
+##form EDIT BALLOT OPTIONS key question = 
+##form EDIT BALLOT OPTIONS key text = 
+#$edit_ballot{"name"} = $NAME;
+#$edit_ballot{"question"} = $QUESTION;
+#$edit_ballot{"text"} = $DESCRIPTION;
+#$edit_ballot{"show_review_page"} = "Continue &gt;&gt;";
+
+
+# Print the result page's HTML
+#my $result_page_html = $driver->get_page_source();
+#print "Result Page HTML:\n$result_page_html\n";
+
+exit(1);
+
+# Close the driver
+$driver->quit;
