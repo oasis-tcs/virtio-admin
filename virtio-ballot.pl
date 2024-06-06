@@ -3,7 +3,16 @@ use warnings;
 use Selenium::Remote::Driver;
 use Selenium::Remote::WDKeys;
 use Time::HiRes qw(sleep);
-use Selenium::ActionChains;
+
+#This uses Selenium now, which one has to download and run separately.
+#
+#    See selenium.sh
+#    
+#    Also on fedora selenium is not packaged.
+#    to get it from cpan, run this command:
+#    
+#            cpanm Selenium::Remote::Driver
+
 
 #argument parsing
 if ($#ARGV != 2) {
@@ -142,7 +151,7 @@ sub set_checkbox {
 
 
 sub set_date_time {
-	my ($action_chains, $driver, $name, $day, $h, $m) = @_;
+	my ($driver, $name, $day, $h, $m) = @_;
 	my $index = $h * 4 + ($m + 14) / 15 + 1; #1st entry is "Time" with dummy value 0
 	my $date = $driver->find_element('//input[@id="' . $name . '"]', 'xpath');
 	$date->clear();
@@ -186,8 +195,6 @@ my $driver = Selenium::Remote::Driver->new(
     port               => 4444,
     browser_name       => 'firefox'
 );
-
-my $action_chains = Selenium::ActionChains->new(driver => $driver);
 
 my $url = 'https://groups.oasis-open.org/higherlogic/ws/groups/b3f5efa5-0e12-4320-873b-018dc7d3f25c/ballots/create_ballot';
 print "LOGIN as $USERNAME at $url\n";
@@ -247,8 +254,8 @@ my $abstain_field = $driver->find_element('//input[@name="include_abstain"]', 'x
 scroll_and_click($driver, $abstain_field);
 die unless $abstain_field->is_selected();
 
-set_date_time($action_chains, $driver, "open_date", $start, $h, $m);
-set_date_time($action_chains, $driver, "close_date", $end, $h, $m);
+set_date_time($driver, "open_date", $start, $h, $m);
+set_date_time($driver, "close_date", $end, $h, $m);
 
 #voter management.
 #Auto-update: second option is true
@@ -280,11 +287,11 @@ scroll_and_click($driver, $send_reminder_field);
 die unless $send_reminder_field->is_selected();
 
 
-set_date_time($action_chains, $driver, "remind_date", $remind1, $h, $m);
+set_date_time($driver, "remind_date", $remind1, $h, $m);
 
-set_date_time($action_chains, $driver, "remind_date_2", $remind2, $h, $m);
+set_date_time($driver, "remind_date_2", $remind2, $h, $m);
 
-set_date_time($action_chains, $driver, "remind_date_3", $remind3, $h, $m);
+set_date_time($driver, "remind_date_3", $remind3, $h, $m);
 
 #print "ENTER to continue:";
 #{ my $line = <STDIN>; }
