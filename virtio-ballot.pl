@@ -14,64 +14,12 @@ use Time::HiRes qw(sleep);
 #    
 #            cpanm Selenium::Remote::Driver
 
-
+print $#ARGV;
 #argument parsing
 if ($#ARGV != 2) {
 	print STDERR "usage: virtio-ballot.pl <name> <question> <description>\n";
 	exit 3;
 }
-
-#load ballot info
-my $NAME=$ARGV[0];
-$NAME =~ s/\n/ /g;
-$NAME =~ s/^\s*//;
-$NAME =~ s/\s*$//;
-my $QUESTION=$ARGV[1];
-$QUESTION =~ s/^\s*//;
-$QUESTION =~ s/\s*$//;
-my $DESCRIPTION=$ARGV[2];
-$DESCRIPTION =~ s/^\s*//;
-$DESCRIPTION =~ s/\s*$//;
-
-$DESCRIPTION =~ s/&/&amp;/sg;
-$DESCRIPTION =~ s/</&lt;/sg;
-$DESCRIPTION =~ s/>/&gt;/sg;
-$DESCRIPTION =~ s/"/&quot;/sg;
-$DESCRIPTION =~ s/'/&apos;/sg;
-
-$DESCRIPTION =~ s/\n/<br\/>/sg;
-#750 maximum character limit
-#TODO: prettify
-die if length($DESCRIPTION) > 750;
-
-
-#load username and password
-{
-	package RC;
-	for my $file ("$ENV{HOME}/.virtio-tc-rc")
-	{
-		unless (my $return = do $file) {
-			warn "couldn't parse $file: $@" if $@;
-			warn "couldn't do $file: $!"    unless defined $return;
-			warn "couldn't run $file"       unless $return;
-		}
-	}
-
-}
-
-if (not defined $RC::USERNAME or not defined $RC::PASSWORD) {
-	print STDERR <<EOF
-Unable to find username/password.
-Please create $ENV{"HOME"}/.virtio-tc-rc
-In the following format (without <>):
-\$USERNAME = '<username>';
-\$PASSWORD = '<password>';
-EOF
-}
-
-my $USERNAME = $RC::USERNAME;
-my $PASSWORD = $RC::PASSWORD;
-
 ###########################################################################
 #helper functions
 ###########################################################################
@@ -186,9 +134,64 @@ sub getdate {
 	}
 };
 
+sub escape_for_html {
+	my $s=shift;
+	$s =~ s/&/&amp;/sg;
+	$s =~ s/</&lt;/sg;
+	$s =~ s/>/&gt;/sg;
+	$s =~ s/"/&quot;/sg;
+	$s =~ s/'/&apos;/sg;
+
+	$s =~ s/\n/<br\/>/sg;
+	return $s;
+}
 ###########################################################################
 #create ballot
 ###########################################################################
+
+#load ballot info
+my $NAME=$ARGV[0];
+#no line breaks in title
+$NAME =~ s/\n/ /g;
+$NAME = escape_for_html($NAME);
+
+my $QUESTION=$ARGV[1];
+$QUESTION = escape_for_html($QUESTION);
+
+my $DESCRIPTION=$ARGV[2];
+$DESCRIPTION = escape_for_html($DESCRIPTION);
+
+#text says there is a 750 maximum character limit,
+#but things seem to work anyway ...
+
+
+#load username and password
+{
+	package RC;
+	for my $file ("$ENV{HOME}/.virtio-tc-rc")
+	{
+		unless (my $return = do $file) {
+			warn "couldn't parse $file: $@" if $@;
+			warn "couldn't do $file: $!"    unless defined $return;
+			warn "couldn't run $file"       unless $return;
+		}
+	}
+
+}
+
+if (not defined $RC::USERNAME or not defined $RC::PASSWORD) {
+	print STDERR <<EOF
+Unable to find username/password.
+Please create $ENV{"HOME"}/.virtio-tc-rc
+In the following format (without <>):
+\$USERNAME = '<username>';
+\$PASSWORD = '<password>';
+EOF
+}
+
+my $USERNAME = $RC::USERNAME;
+my $PASSWORD = $RC::PASSWORD;
+
 
 # Initialize the driver
 my $driver = Selenium::Remote::Driver->new(
@@ -262,7 +265,6 @@ set_date_time($driver, "close_date", $end, $h, $m);
 #Auto-update: second option is true
 my $auto_update = $driver->find_element('//select[@name="auto_update"]', 'xpath');
 $auto_update->execute_script('arguments[0].selectedIndex=0;');
-print "auto-update value: ", $auto_update->get_value(), "\n";
 die unless $auto_update->get_value() eq "true";
 
 
