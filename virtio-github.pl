@@ -226,7 +226,7 @@ foreach my $field (@print_fields) {
 	} else {
 		my $grep;
 		if ($field eq "proposal") {
-			$grep = "https://lore.kernel.org/virtio-comment/\\S*";
+			$grep = "(https://lore.kernel.org/virtio-comment/|https://lists.oasis-open.org/archives/virtio)\\S*";
 			$field = "body";
 		} elsif ($field eq "labels") {
 			$grep = "^virtio-v\\S*";
