@@ -150,13 +150,9 @@ sub escape_for_html {
 #some fields are different. Donnu why /shrugs
 sub escape_for_title {
 	my $s=shift;
+	$s =~ s/\n/ /g;
 	$s =~ s/'/"/sg;
 	$s =~ s/\\/\\\\/sg;
-	return $s;
-}
-sub escape_for_question {
-	my $s=shift;
-	$s =~ s/'/"/sg;
 	return $s;
 }
 ###########################################################################
@@ -166,11 +162,10 @@ sub escape_for_question {
 #load ballot info
 my $NAME=$ARGV[0];
 #no line breaks in title
-$NAME =~ s/\n/ /g;
 $NAME = escape_for_title($NAME);
 
 my $QUESTION=$ARGV[1];
-$QUESTION = escape_for_question($QUESTION);
+$QUESTION = escape_for_title($QUESTION);
 
 my $DESCRIPTION=$ARGV[2];
 $DESCRIPTION = escape_for_html($DESCRIPTION);
