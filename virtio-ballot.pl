@@ -143,6 +143,20 @@ sub escape_for_html {
 	$s =~ s/'/&apos;/sg;
 
 	$s =~ s/\n/<br\/>/sg;
+	$s =~ s/\\/\\\\/sg;
+	return $s;
+}
+
+#some fields are different. Donnu why /shrugs
+sub escape_for_title {
+	my $s=shift;
+	$s =~ s/'/"/sg;
+	$s =~ s/\\/\\\\/sg;
+	return $s;
+}
+sub escape_for_question {
+	my $s=shift;
+	$s =~ s/'/"/sg;
 	return $s;
 }
 ###########################################################################
@@ -153,10 +167,10 @@ sub escape_for_html {
 my $NAME=$ARGV[0];
 #no line breaks in title
 $NAME =~ s/\n/ /g;
-$NAME = escape_for_html($NAME);
+$NAME = escape_for_title($NAME);
 
 my $QUESTION=$ARGV[1];
-$QUESTION = escape_for_html($QUESTION);
+$QUESTION = escape_for_question($NAME);
 
 my $DESCRIPTION=$ARGV[2];
 $DESCRIPTION = escape_for_html($DESCRIPTION);
