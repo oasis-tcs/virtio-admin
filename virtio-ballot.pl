@@ -170,7 +170,7 @@ $NAME =~ s/\n/ /g;
 $NAME = escape_for_title($NAME);
 
 my $QUESTION=$ARGV[1];
-$QUESTION = escape_for_question($NAME);
+$QUESTION = escape_for_question($QUESTION);
 
 my $DESCRIPTION=$ARGV[2];
 $DESCRIPTION = escape_for_html($DESCRIPTION);
