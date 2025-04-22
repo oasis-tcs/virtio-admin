@@ -1,7 +1,7 @@
 <div>
 <h2>README</h2>
 
-<p>Members of the <a href="https://www.oasis-open.org/committees/virtio/">OASIS Virtual I/O Device (VIRTIO) TC</a> create and manage technical content in this TC GitHub repository ( <a href="https://github.com/oasis-tcs/virtio-admin">https://github.com/oasis-tcs/virtio-admin</a> ) as part of the TC's chartered work (<i>i.e.</i>, the program of work and deliverables described in its <a href="https://www.oasis-open.org/committees/virtio/charter.php">charter</a>).</p>
+<p>Members of the <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=b3f5efa5-0e12-4320-873b-018dc7d3f25c">OASIS Virtual I/O Device (VIRTIO) TC</a> create and manage technical content in this TC GitHub repository ( <a href="https://github.com/oasis-tcs/virtio-admin">https://github.com/oasis-tcs/virtio-admin</a> ) as part of the TC's chartered work (<i>i.e.</i>, the program of work and deliverables described in its <a href="https://www.oasis-open.org/committees/virtio/charter.php">charter</a>).</p>
 
 <p>OASIS TC GitHub repositories, as described in <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">GitHub Repositories for OASIS TC Members' Chartered Work</a>, are governed by the OASIS <a href="https://www.oasis-open.org/policies-guidelines/tc-process">TC Process</a>, <a href="https://www.oasis-open.org/policies-guidelines/ipr">IPR Policy</a>, and other policies, similar to TC Wikis, TC JIRA issues tracking instances, TC SVN/Subversion repositories, etc.  While they make use of public GitHub repositories, these TC GitHub repositories are distinct from <a href="https://www.oasis-open.org/resources/open-repositories">OASIS Open Repositories</a>, which are used for development of open source <a href="https://www.oasis-open.org/resources/open-repositories/licenses">licensed</a> content.</p>
 </div>
@@ -36,15 +36,15 @@
 <dt><strong>Virtio TC Meetings:</strong></dt>
 <dd>The Virtio TC has adopted a standing rule to conduct business only by electronic ballot, without Meetings.
 The list of all current and past ballots can be found on
-<A HREF="https://www.oasis-open.org/committees/ballots.php?wg_abbrev=virtio">this page</A>.
+<A HREF="https://groups.oasis-open.org/higherlogic/ws/public/ballots?wg_id=b3f5efa5-0e12-4320-873b-018dc7d3f25c">this page</A>.
 </dd>
 <dt><strong>Gaining voting rights</strong></dt>
 <dd>A TC Member who lacks voting rights shall only gain voting rights
    after requesting this from the TC chair by submitting the request to the
-   <a href="http://lists.oasis-open.org/archives/virtio/">virtio mailing list</a>
-   with a copy sent to the TC chair by email. For example, for a new TC member
-   to gain voting rights the request shall be send to the TC
-   chair after the close of the 60th day.
+   <a href="https://groups.oasis-open.org/communities/community-home/digestviewer?CommunityKey=b3f5efa5-0e12-4320-873b-018dc7d3f25c">OASIS-virtio@connectedcommunity.org mailing list</a>
+   with a copy sent to the TC chairs by email. For example, for a new TC member
+   to gain voting rights the request shall be sent to the TC
+   chairs after the close of the 60th day.
 </dd>
 <dt><strong>Maintaining Voting Rights</strong></dt>
 <dd>
@@ -75,8 +75,8 @@ The policy includes a disclosure obligation (see
 for details).
 <br>
 To satisfy the disclosure obligation, disclosures should be submitted to
-the <a href="http://lists.oasis-open.org/archives/virtio/">virtio mailing list</a>
-or the <a href="https://www.oasis-open.org/committees/comments/index.php?wg_abbrev=virtio">virtio-comment</a> mailing list.
+the <a href="https://groups.oasis-open.org/communities/community-home/digestviewer?CommunityKey=b3f5efa5-0e12-4320-873b-018dc7d3f25c">OASIS-virtio@connectedcommunity.org mailing list</a>
+or the <a href="https://lore.kernel.org/virtio-comment/">virtio-comment@lists.linux.dev</a> mailing list (subscriber only).
 <br>
 Disclosures will be uploaded to
 <a href="IPR.md">virtio-admin repository</a>
