@@ -51,6 +51,8 @@ sub wait_and_click {
 sub scroll_and_click {
     my ($driver, $element) = @_;
     my $elapsed_time = 0;
+    #OASIS Rate limits us now? Give them a second.
+    sleep(1);
     while (1) {
         my $clicked = eval { $element->click(); 1; };
         return $clicked if $clicked;
@@ -309,8 +311,6 @@ set_date_time($driver, "remind_date_3", $remind3, $h, $m);
 #{ my $line = <STDIN>; }
 
 print "CREATE BALLOT AT $url\n";
-#OASIS Rate limits us now? Give them a second.
-sleep(1);
 
 scroll_and_click($driver, $continue_button);
 #print "ENTER to accept:";
