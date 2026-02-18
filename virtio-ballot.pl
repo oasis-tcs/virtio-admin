@@ -219,7 +219,7 @@ $driver->get($url);
 my $login_button = wait_for_element($driver, '//button[contains(@class, "loginButton")]', 130);
 
 # Step 3: Locate the username and password fields using placeholder text
-my $username_field = $driver->find_element('//input[@placeholder="Username or Email"]', 'xpath');
+my $username_field = $driver->find_element('//input[@placeholder="Username"]', 'xpath');
 my $password_field = $driver->find_element('//input[@placeholder="Password"]', 'xpath');
 
 # Step 4: Fill in the username and password
@@ -309,6 +309,8 @@ set_date_time($driver, "remind_date_3", $remind3, $h, $m);
 #{ my $line = <STDIN>; }
 
 print "CREATE BALLOT AT $url\n";
+#OASIS Rate limits us now? Give them a second.
+sleep(1);
 
 scroll_and_click($driver, $continue_button);
 #print "ENTER to accept:";
